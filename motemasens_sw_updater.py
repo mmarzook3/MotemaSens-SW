@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import queue
+import re
 import subprocess
 import sys
 import threading
@@ -251,6 +252,48 @@ class UpdaterApp:
             raise RuntimeError("Select a USB COM port first.")
         return label.split(" - ", 1)[0].strip()
 
+    def available_port_rows(self) -> list[tuple[int, str, str]]:
+        if SERIAL_IMPORT_ERROR is not None or list_ports is None:
+            raise RuntimeError("pyserial is not available.")
+
+        preferred_words = ("ch340", "uart", "cp210", "silicon", "espressif")
+        port_rows = []
+        for port in list_ports.comports():
+            label = f"{port.device} - {port.description}"
+            text = label.lower()
+            if "usb-enhanced-serial ch343" in text:
+                priority = 0
+            elif "ch343" in text:
+                priority = 1
+            elif "usb" in text and any(word in text for word in preferred_words):
+                priority = 2
+            elif "usb" in text:
+                priority = 3
+            elif "bluetooth" in text:
+                priority = 5
+            else:
+                priority = 4
+            port_rows.append((priority, port.device, label))
+        port_rows.sort(key=lambda item: (item[0], item[1]))
+        return port_rows
+
+    def resolve_flash_port(self) -> str:
+        selected = self.selected_port()
+        rows = self.available_port_rows()
+        devices = {device.upper(): device for _priority, device, _label in rows}
+        if selected.upper() in devices:
+            return devices[selected.upper()]
+
+        self.log(f"Selected port {selected} is not available now. Refreshing ports...")
+        self.root.after(0, self.refresh_ports)
+        fallback = next((device for priority, device, _label in rows if priority <= 1), "")
+        if fallback:
+            self.log(f"Using detected MotemaSens USB port {fallback} instead.")
+            return fallback
+
+        available = ", ".join(device for _priority, device, _label in rows) or "none"
+        raise RuntimeError(f"{selected} is not available. Available ports: {available}")
+
     def show_selected_version(self) -> None:
         try:
             version = self.selected_version()
@@ -274,7 +317,8 @@ class UpdaterApp:
     def flash_selected(self) -> None:
         try:
             version = self.selected_version()
-            port = self.selected_port()
+            port = self.resolve_flash_port()
+            esptool_port = esptool_port_name(port)
             self.set_busy(True, f"Preparing {version.version}...")
             release_dir = CACHE_DIR / "versions" / version.version
             release_dir.mkdir(parents=True, exist_ok=True)
@@ -287,13 +331,13 @@ class UpdaterApp:
 
             self.set_busy(True, f"Flashing {version.version} on {port}...")
             if self.erase_var.get():
-                self.run_esptool(esptool_command(["--chip", "esp32s3", "--port", port, "erase_flash"]))
+                self.run_esptool(esptool_command(["--chip", "esp32s3", "--port", esptool_port, "erase_flash"]))
 
             command = esptool_command([
                 "--chip",
                 "esp32s3",
                 "--port",
-                port,
+                esptool_port,
                 "--baud",
                 "921600",
                 "--before",
@@ -305,7 +349,7 @@ class UpdaterApp:
             ])
             for firmware_file in version.files:
                 command.extend([firmware_file.address, str(local_files[firmware_file.key])])
-            self.run_esptool(command)
+            self.run_esptool(command, retry_on_port_open=True)
             self.log("Flash completed. The device should restart now.")
             self.root.after(0, messagebox.showinfo, "Flash complete", f"{version.version} was flashed successfully.")
         except Exception as exc:
@@ -332,7 +376,22 @@ class UpdaterApp:
         local_path.write_bytes(data)
         self.log(f"Saved {firmware_file.key}: {local_path}")
 
-    def run_esptool(self, command: list[str]) -> None:
+    def run_esptool(self, command: list[str], retry_on_port_open: bool = False) -> None:
+        exit_code, output = self._run_esptool_once(command)
+        if exit_code == 0:
+            return
+
+        port_open_error = "could not open port" in output.lower() or "filenotfounderror" in output.lower()
+        if retry_on_port_open and port_open_error:
+            self.log("Port open failed. Waiting for Windows to re-enumerate USB and retrying once...")
+            time.sleep(3)
+            exit_code, output = self._run_esptool_once(command)
+            if exit_code == 0:
+                return
+
+        raise RuntimeError(f"esptool failed with exit code {exit_code}")
+
+    def _run_esptool_once(self, command: list[str]) -> tuple[int, str]:
         self.log("Running: " + " ".join(command))
         process = subprocess.Popen(
             command,
@@ -343,11 +402,13 @@ class UpdaterApp:
             errors="replace",
         )
         assert process.stdout is not None
+        lines = []
         for line in process.stdout:
-            self.log(line.rstrip())
+            cleaned = line.rstrip()
+            lines.append(cleaned)
+            self.log(cleaned)
         exit_code = process.wait()
-        if exit_code != 0:
-            raise RuntimeError(f"esptool failed with exit code {exit_code}")
+        return exit_code, "\n".join(lines)
 
 
 def download_bytes(url: str) -> bytes:
@@ -375,6 +436,14 @@ def esptool_command(args: list[str]) -> list[str]:
     if getattr(sys, "frozen", False):
         return [sys.executable, "--run-esptool", *args]
     return [sys.executable, "-m", "esptool", *args]
+
+
+def esptool_port_name(port: str) -> str:
+    cleaned = port.strip()
+    match = re.fullmatch(r"COM(\d+)", cleaned, flags=re.IGNORECASE)
+    if os.name == "nt" and match and int(match.group(1)) >= 10:
+        return f"\\\\.\\{cleaned.upper()}"
+    return cleaned
 
 
 def run_bundled_esptool() -> int:
