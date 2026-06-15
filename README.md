@@ -38,7 +38,7 @@ The updater:
 
 1. Reads `manifest.json` from this public repository.
 2. Shows released firmware versions in a dropdown.
-3. Auto-selects the likely ESP32 USB COM port.
+3. Auto-selects `USB-Enhanced-SERIAL CH343` first when present, because that is the ESP32 USB port.
 4. Downloads the selected release files.
 5. Verifies SHA256 checksums.
 6. Flashes the ESP32-S3 using `esptool`.

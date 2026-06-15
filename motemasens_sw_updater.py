@@ -170,19 +170,32 @@ class UpdaterApp:
             return
 
         ports = []
-        preferred_index = 0
-        preferred_words = ("ch343", "ch340", "usb", "uart", "cp210", "silicon", "espressif")
+        preferred_words = ("ch340", "uart", "cp210", "silicon", "espressif")
+        port_rows = []
         for port in list_ports.comports():
             label = f"{port.device} - {port.description}"
-            ports.append(label)
             text = label.lower()
-            if any(word in text for word in preferred_words):
-                preferred_index = len(ports) - 1
+            if "usb-enhanced-serial ch343" in text:
+                priority = 0
+            elif "ch343" in text:
+                priority = 1
+            elif "usb" in text and any(word in text for word in preferred_words):
+                priority = 2
+            elif "usb" in text:
+                priority = 3
+            elif "bluetooth" in text:
+                priority = 5
+            else:
+                priority = 4
+            port_rows.append((priority, port.device, label))
+
+        port_rows.sort(key=lambda item: (item[0], item[1]))
+        ports = [item[2] for item in port_rows]
 
         self.port_combo["values"] = ports
         if ports:
-            self.port_combo.current(preferred_index)
-            self.log(f"Found {len(ports)} serial port(s). Auto-selected {ports[preferred_index]}.")
+            self.port_combo.current(0)
+            self.log(f"Found {len(ports)} serial port(s). Auto-selected {ports[0]}.")
         else:
             self.port_var.set("")
             self.log("No serial ports found. Connect the device over USB and click Refresh ports.")
