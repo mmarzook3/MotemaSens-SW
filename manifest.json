@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "product": "MotemaSens",
+  "repo": "https://github.com/mmarzook3/MotemaSens-SW",
+  "latest": "v1",
+  "versions": [
+    {
+      "version": "v1",
+      "name": "MotemaSens v1",
+      "firmware_version": "dev-2026.06.15.17-device-serial",
+      "source_commit": "202d9119c6a51a5fbd8ec1cb979706b9f67b2116",
+      "release_date": "2026-06-15",
+      "notes": "First public MotemaSens customer flashing release.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v1/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v1/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v1/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v1/partitions.bin",
+          "address": "0x8000",
+          "sha256": "bd0f7954aca2ef7d925ee21aaa1f3dc8822d1d6ce5cbbd26a135e5886bfff6ce",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v1/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v1/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v1/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v1/firmware.bin",
+          "address": "0x10000",
+          "sha256": "0678dbe7cbb3cdcdd341e5be5fbedeb6d30c28b9566b2c7333217f7304ec8af8",
+          "size": 1503344
+        }
+      }
+    }
+  ]
+}
