@@ -27,9 +27,9 @@ The BAT file checks Python prerequisites, installs `pyserial` and `esptool` if m
 
 | Item | Value |
 | --- | --- |
-| Public version | `v2` |
-| Firmware version | `dev-2026.06.15.28-lcd-sd-footer` |
-| Dev source commit | `d984c32c0720108ecfa40f458554c0b9daeee36f` |
+| Public version | `v3` |
+| Firmware version | `dev-2026.06.15.34-battery-float` |
+| Dev source commit | `eb7410947323308a55ddcf882038cf1bbb89a00d` |
 | Release date | `2026-06-15` |
 
 ## What The Updater Does

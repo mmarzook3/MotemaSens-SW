@@ -1,0 +1,38 @@
+{
+  "version": "v3",
+  "name": "MotemaSens v3",
+  "firmware_version": "dev-2026.06.15.34-battery-float",
+  "source_commit": "eb7410947323308a55ddcf882038cf1bbb89a00d",
+  "release_date": "2026-06-15",
+  "notes": "Battery no-pack detection, WiFi credential persistence, and current stable SD/BLE firmware.",
+  "files": {
+    "bootloader": {
+      "path": "releases/v3/bootloader.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v3/bootloader.bin",
+      "address": "0x0",
+      "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+      "size": 15104
+    },
+    "partitions": {
+      "path": "releases/v3/partitions.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v3/partitions.bin",
+      "address": "0x8000",
+      "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+      "size": 3072
+    },
+    "boot_app0": {
+      "path": "releases/v3/boot_app0.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v3/boot_app0.bin",
+      "address": "0xe000",
+      "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+      "size": 8192
+    },
+    "firmware": {
+      "path": "releases/v3/firmware.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v3/firmware.bin",
+      "address": "0x10000",
+      "sha256": "8434b3b14a63f063dca5e24569db0216d1e48c11fd9a6d485a2258ccb7399969",
+      "size": 1678224
+    }
+  }
+}
