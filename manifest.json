@@ -128,7 +128,7 @@
         "publicVersion": "v2",
         "name": "MotemaSens Mobile v2",
         "releaseDate": "2026-06-15",
-        "notes": "Adds manifest-driven in-app update prompt and customer app update fallback link.",
+        "notes": "Adds manifest-driven in-app update prompt and customer app update fallback link. APK is signed for direct sideload testing until Play Store signing is configured.",
         "sourceCommit": "3072a27",
         "platforms": {
           "android": {
@@ -138,8 +138,8 @@
             "apk": {
               "path": "mobile_releases/v2/motemasens-mobile-v2.apk",
               "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk",
-              "sha256": "2803bcf7bbfc453aa938cf52bc76fc7462ad572ba7ef45c171782104b902f7ad",
-              "size": 52163335
+              "sha256": "6673a17185d640b92cd0f2a37bcc51659b384ab22067b052d70fb6b67a55a587",
+              "size": 52199542
             }
           },
           "ios": {

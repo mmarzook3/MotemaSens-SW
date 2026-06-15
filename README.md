@@ -36,7 +36,7 @@ Current Android app release:
 | Checksum | [motemasens-mobile-v2.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk.sha256) |
 | Release metadata | [manifest.json app section](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/manifest.json) |
 
-On Android, download the APK, open it, and allow install from browser/files if Android asks.
+On Android, download the APK, open it, and allow install from browser/files if Android asks. This v2 APK is signed for direct sideload testing until Play Store signing is configured.
 
 ## Current Release
 
