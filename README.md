@@ -30,10 +30,11 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v1` |
-| Flutter app version | `1.0.26+26` |
-| Download APK | [MotemaSens-Mobile-v1.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/MotemaSens-Mobile-v1.apk) |
-| Release metadata | [apps/v1/release.json](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/release.json) |
+| App public version | `v2` |
+| Flutter app version | `1.0.27+27` |
+| Download APK | [motemasens-mobile-v2.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk) |
+| Checksum | [motemasens-mobile-v2.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk.sha256) |
+| Release metadata | [manifest.json app section](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/manifest.json) |
 
 On Android, download the APK, open it, and allow install from browser/files if Android asks.
 
@@ -77,4 +78,8 @@ The updater:
 ## Release Policy
 
 Only approved releases from `mmarzook3/MotemaSens` main branch are published here.
-Development code, debug builds, secrets, and source files are not published to this repository.
+Private firmware source, development logs, debug builds, secrets, and factory credentials are not published to this repository. The customer mobile app source is mirrored under `mobile_app/` for release transparency.
+
+## Mobile App Release Notes
+
+The mobile app source is mirrored into `mobile_app/` for customer-visible release builds. Released APK files are stored under `mobile_releases/<version>/`, and the non-breaking `app` block in `manifest.json` lets the app check for updates without changing the firmware manifest fields.

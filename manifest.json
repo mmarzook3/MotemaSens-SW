@@ -118,5 +118,59 @@
         }
       }
     }
-  ]
+  ],
+  "app": {
+    "schema": 1,
+    "latest": "1.0.27+27",
+    "releases": [
+      {
+        "version": "1.0.27+27",
+        "publicVersion": "v2",
+        "name": "MotemaSens Mobile v2",
+        "releaseDate": "2026-06-15",
+        "notes": "Adds manifest-driven in-app update prompt and customer app update fallback link.",
+        "sourceCommit": "3072a27",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v2/motemasens-mobile-v2.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk",
+              "sha256": "2803bcf7bbfc453aa938cf52bc76fc7462ad572ba7ef45c171782104b902f7ad",
+              "size": 52163335
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
+      {
+        "version": "1.0.26+26",
+        "publicVersion": "v1",
+        "name": "MotemaSens Mobile v1",
+        "releaseDate": "2026-06-15",
+        "notes": "First public Android app APK for MotemaSens customer testing.",
+        "sourceCommit": "69d013c",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "apps/v1/MotemaSens-Mobile-v1.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/MotemaSens-Mobile-v1.apk",
+              "sha256": "708d5acd544df15ecbc9ab96d126ac22d4bcd5b3d3df2884943cf23e40594674",
+              "size": 51211170
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      }
+    ]
+  }
 }

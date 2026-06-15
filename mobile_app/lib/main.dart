@@ -10,6 +10,9 @@ import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 
+import 'app_update_banner.dart';
+import 'app_update_service.dart';
+
 void main() {
   runApp(const MotemaSensApp());
 }
@@ -1790,8 +1793,59 @@ class _OtaProgressRow extends StatelessWidget {
   }
 }
 
-class ConnectionChooserScreen extends StatelessWidget {
+class ConnectionChooserScreen extends StatefulWidget {
   const ConnectionChooserScreen({super.key});
+
+  @override
+  State<ConnectionChooserScreen> createState() =>
+      _ConnectionChooserScreenState();
+}
+
+class _ConnectionChooserScreenState extends State<ConnectionChooserScreen> {
+  final AppUpdateService _appUpdateService = AppUpdateService();
+  AppUpdateState _appUpdateState = AppUpdateState.checking();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAppUpdate();
+  }
+
+  Future<void> _checkAppUpdate({bool force = false}) async {
+    setState(() {
+      _appUpdateState = AppUpdateState.checking(
+        installedVersion: _appUpdateState.installedVersion,
+      );
+    });
+    final state = await _appUpdateService.checkForUpdate(force: force);
+    if (!mounted) return;
+    setState(() => _appUpdateState = state);
+  }
+
+  Future<void> _startAppUpdate() async {
+    final release = _appUpdateState.release;
+    if (release == null) return;
+    try {
+      await _appUpdateService.startUpdate(release);
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('App update failed: $error')),
+      );
+    }
+  }
+
+  Future<void> _remindLater() async {
+    final state = await _appUpdateService.remindLater(_appUpdateState);
+    if (!mounted) return;
+    setState(() => _appUpdateState = state);
+  }
+
+  Future<void> _ignoreVersion() async {
+    final state = await _appUpdateService.ignoreVersion(_appUpdateState);
+    if (!mounted) return;
+    setState(() => _appUpdateState = state);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1835,6 +1889,14 @@ class ConnectionChooserScreen extends StatelessWidget {
               MaterialPageRoute(
                   builder: (_) => const DeveloperPasswordScreen()),
             ),
+          ),
+          const SizedBox(height: 12),
+          AppUpdateBanner(
+            state: _appUpdateState,
+            onRetry: () => _checkAppUpdate(force: true),
+            onUpdate: _startAppUpdate,
+            onLater: _remindLater,
+            onIgnore: _ignoreVersion,
           ),
         ],
       ),

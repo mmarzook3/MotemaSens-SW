@@ -1,7 +1,7 @@
 name: motemasens_mobile
 description: Mobile controller app for the MotemaSens ESP32 device.
 publish_to: "none"
-version: 1.0.26+26
+version: 1.0.27+27
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -13,6 +13,10 @@ dependencies:
   http: ^1.2.2
   crypto: ^3.0.3
   permission_handler: ^12.0.3
+  package_info_plus: ^8.0.2
+  in_app_update: ^4.2.3
+  url_launcher: ^6.3.0
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

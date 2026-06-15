@@ -1,0 +1,77 @@
+name: Mobile App Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_version:
+        description: Flutter app version, for example 1.0.27+27
+        required: true
+      public_version:
+        description: Customer release label, for example v2
+        required: true
+      release_notes:
+        description: Release notes
+        required: true
+      build_mode:
+        description: APK build mode
+        required: true
+        default: release
+        type: choice
+        options:
+          - release
+          - debug
+
+jobs:
+  mobile-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        working-directory: mobile_app
+        run: flutter pub get
+
+      - name: Build APK
+        working-directory: mobile_app
+        run: |
+          if [ "${{ inputs.build_mode }}" = "debug" ]; then
+            flutter build apk --debug
+            mkdir -p ../mobile_releases/${{ inputs.public_version }}
+            cp build/app/outputs/flutter-apk/app-debug.apk ../mobile_releases/${{ inputs.public_version }}/motemasens-mobile-${{ inputs.public_version }}.apk
+          else
+            flutter build apk --release
+            mkdir -p ../mobile_releases/${{ inputs.public_version }}
+            cp build/app/outputs/flutter-apk/app-release.apk ../mobile_releases/${{ inputs.public_version }}/motemasens-mobile-${{ inputs.public_version }}.apk
+          fi
+
+      - name: Update manifest
+        run: |
+          python scripts/update_mobile_manifest.py \
+            --version "${{ inputs.app_version }}" \
+            --public-version "${{ inputs.public_version }}" \
+            --name "MotemaSens Mobile ${{ inputs.public_version }}" \
+            --apk "mobile_releases/${{ inputs.public_version }}/motemasens-mobile-${{ inputs.public_version }}.apk" \
+            --notes "${{ inputs.release_notes }}" \
+            --source-commit "$GITHUB_SHA"
+
+      - name: Commit release files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "release(mobile): publish app ${{ inputs.public_version }}"
+          file_pattern: manifest.json mobile_releases/${{ inputs.public_version }}/**
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: mobile-release-${{ inputs.public_version }}
+          name: MotemaSens Mobile ${{ inputs.public_version }}
+          body: ${{ inputs.release_notes }}
+          files: mobile_releases/${{ inputs.public_version }}/motemasens-mobile-${{ inputs.public_version }}.apk
