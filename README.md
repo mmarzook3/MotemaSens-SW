@@ -6,6 +6,7 @@ This repository contains only customer flashing files:
 
 - Windows updater GUI
 - Released ESP32 binary files
+- Released Android app APK
 - Release manifest and checksums
 
 It does not contain private firmware source code, customer data, factory secrets, or development logs.
@@ -22,6 +23,19 @@ run_motemasens_sw_updater.bat
 ```
 
 The BAT file checks Python prerequisites, installs `pyserial` and `esptool` if missing, then opens the updater GUI.
+
+## Android App Download
+
+Current Android app release:
+
+| Item | Value |
+| --- | --- |
+| App public version | `v1` |
+| Flutter app version | `1.0.26+26` |
+| Download APK | [MotemaSens-Mobile-v1.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/MotemaSens-Mobile-v1.apk) |
+| Release metadata | [apps/v1/release.json](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/release.json) |
+
+On Android, download the APK, open it, and allow install from browser/files if Android asks.
 
 ## Current Release
 

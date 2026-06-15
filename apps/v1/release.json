@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "product": "MotemaSens Mobile App",
+  "app_version": "v1",
+  "flutter_version": "1.0.26+26",
+  "source_commit": "69d013cf073e6b01be7d5f8e1d647f140ee25e15",
+  "release_date": "2026-06-15",
+  "file": {
+    "path": "apps/v1/MotemaSens-Mobile-v1.apk",
+    "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/apps/v1/MotemaSens-Mobile-v1.apk",
+    "sha256": "708d5acd544df15ecbc9ab96d126ac22d4bcd5b3d3df2884943cf23e40594674",
+    "size": 51211170
+  }
+}
