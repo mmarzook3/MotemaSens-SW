@@ -22,6 +22,8 @@ from pathlib import Path
 from tkinter import DISABLED, NORMAL, BooleanVar, StringVar, Text, Tk, messagebox
 from tkinter import ttk
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 try:
     from serial.tools import list_ports
 except Exception as exc:  # pragma: no cover - shown in the GUI at runtime
@@ -30,10 +32,13 @@ except Exception as exc:  # pragma: no cover - shown in the GUI at runtime
 else:
     SERIAL_IMPORT_ERROR = None
 
+from motemasens_tool_versions import SW_UPDATER_VERSION
+
 
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main"
 MANIFEST_URL = f"{PUBLIC_RAW_BASE}/manifest.json"
-APP_TITLE = "MotemaSens SW Updater"
+APP_NAME = "MotemaSens SW Updater"
+APP_TITLE = f"{APP_NAME} v{SW_UPDATER_VERSION}"
 CACHE_DIR = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "MotemaSens" / "SWUpdater"
 
 
@@ -282,12 +287,9 @@ class UpdaterApp:
 
             self.set_busy(True, f"Flashing {version.version} on {port}...")
             if self.erase_var.get():
-                self.run_esptool([sys.executable, "-m", "esptool", "--chip", "esp32s3", "--port", port, "erase_flash"])
+                self.run_esptool(esptool_command(["--chip", "esp32s3", "--port", port, "erase_flash"]))
 
-            command = [
-                sys.executable,
-                "-m",
-                "esptool",
+            command = esptool_command([
                 "--chip",
                 "esp32s3",
                 "--port",
@@ -300,7 +302,7 @@ class UpdaterApp:
                 "hard_reset",
                 "write_flash",
                 "-z",
-            ]
+            ])
             for firmware_file in version.files:
                 command.extend([firmware_file.address, str(local_files[firmware_file.key])])
             self.run_esptool(command)
@@ -369,6 +371,20 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def esptool_command(args: list[str]) -> list[str]:
+    if getattr(sys, "frozen", False):
+        return [sys.executable, "--run-esptool", *args]
+    return [sys.executable, "-m", "esptool", *args]
+
+
+def run_bundled_esptool() -> int:
+    sys.argv = ["esptool", *sys.argv[2:]]
+    import esptool
+
+    result = esptool._main()
+    return int(result or 0)
+
+
 def parse_versions(manifest: dict) -> list[FirmwareVersion]:
     versions: list[FirmwareVersion] = []
     for item in manifest.get("versions", []):
@@ -413,4 +429,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--run-esptool":
+        raise SystemExit(run_bundled_esptool())
     raise SystemExit(main())

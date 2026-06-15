@@ -1,0 +1,38 @@
+{
+  "version": "v2",
+  "name": "MotemaSens v2",
+  "firmware_version": "dev-2026.06.15.28-lcd-sd-footer",
+  "source_commit": "d984c32c0720108ecfa40f458554c0b9daeee36f",
+  "release_date": "2026-06-15",
+  "notes": "Customer v2 release with 3 lead ECG baseline, SD binary logging support, BLE/local/remote controls, battery status, and round LCD MIC/ECG status view.",
+  "files": {
+    "bootloader": {
+      "path": "releases/v2/bootloader.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v2/bootloader.bin",
+      "address": "0x0",
+      "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+      "size": 15104
+    },
+    "partitions": {
+      "path": "releases/v2/partitions.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v2/partitions.bin",
+      "address": "0x8000",
+      "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+      "size": 3072
+    },
+    "boot_app0": {
+      "path": "releases/v2/boot_app0.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v2/boot_app0.bin",
+      "address": "0xe000",
+      "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+      "size": 8192
+    },
+    "firmware": {
+      "path": "releases/v2/firmware.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v2/firmware.bin",
+      "address": "0x10000",
+      "sha256": "75f2cc7e995b29bdb69e3f0752d557d5459932a67cc43505b2493e24f3753882",
+      "size": 1677120
+    }
+  }
+}

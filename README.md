@@ -27,9 +27,9 @@ The BAT file checks Python prerequisites, installs `pyserial` and `esptool` if m
 
 | Item | Value |
 | --- | --- |
-| Public version | `v1` |
-| Firmware version | `dev-2026.06.15.17-device-serial` |
-| Dev source commit | `202d9119c6a51a5fbd8ec1cb979706b9f67b2116` |
+| Public version | `v2` |
+| Firmware version | `dev-2026.06.15.28-lcd-sd-footer` |
+| Dev source commit | `d984c32c0720108ecfa40f458554c0b9daeee36f` |
 | Release date | `2026-06-15` |
 
 ## What The Updater Does
@@ -38,7 +38,7 @@ The updater:
 
 1. Reads `manifest.json` from this public repository.
 2. Shows released firmware versions in a dropdown.
-3. Auto-selects `USB-Enhanced-SERIAL CH343` first when present, because that is the ESP32 USB port.
+3. Auto-selects the likely ESP32 USB COM port.
 4. Downloads the selected release files.
 5. Verifies SHA256 checksums.
 6. Flashes the ESP32-S3 using `esptool`.
