@@ -15,7 +15,7 @@ There is no demo/offline device mode in the production UI. If the device is not 
 
 ## Debug Access
 
-The Debug screen is for bring-up and customer support only.
+The Debug screen is for bring-up and device support only.
 
 After entering code `12345`, the app can:
 
@@ -76,7 +76,7 @@ Install to the emulator:
 adb -s emulator-5554 install -r build\app\outputs\flutter-apk\app-debug.apk
 ```
 
-The debug APK is for bench testing. A customer/Play Store release still needs a proper Android release keystore and `flutter build apk --release` or app bundle signing setup.
+The debug APK is for bench testing. A user/Play Store release still needs a proper Android release keystore and `flutter build apk --release` or app bundle signing setup.
 
 ## Changelog
 

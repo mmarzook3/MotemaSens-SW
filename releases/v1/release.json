@@ -4,7 +4,7 @@
   "firmware_version": "dev-2026.06.15.17-device-serial",
   "source_commit": "202d9119c6a51a5fbd8ec1cb979706b9f67b2116",
   "release_date": "2026-06-15",
-  "notes": "First public MotemaSens customer flashing release.",
+  "notes": "First public MotemaSens user flashing release.",
   "files": {
     "bootloader": {
       "path": "releases/v1/bootloader.bin",

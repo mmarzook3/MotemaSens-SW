@@ -1,13 +1,13 @@
 # MotemaSens BIN to CSV Converter
 
-This folder is the customer-facing converter for MotemaSens SD card logs.
+This folder is the user-facing converter for MotemaSens SD card logs.
 
 ## What it does
 
 - Opens a MotemaSens `.bin` file from the SD card.
 - Converts it to a CSV file.
 - Keeps the data format compatible with the MotemaSens CSV viewer.
-- Lets the customer choose the output folder and filename.
+- Lets the user choose the output folder and filename.
 - Can overwrite an existing CSV when needed.
 
 ## How to run
@@ -40,6 +40,6 @@ The output CSV contains the decoded ECG, MIC and IMU values so it can be opened 
 
 ## Notes
 
-- The tool is meant for customer use.
+- The tool is meant for user use.
 - It does not flash firmware.
 - It does not need the full private firmware repo.

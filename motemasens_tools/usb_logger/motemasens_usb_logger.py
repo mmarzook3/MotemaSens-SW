@@ -1,8 +1,8 @@
-"""MotemaSens USB logger and customer utility.
+"""MotemaSens USB logger and user utility.
 
 This tool connects to the ESP32 USB serial port, controls the firmware USB
 live logger, saves CSV rows, shows a small live status view, and also exposes
-the SD BIN to CSV converter in the same customer app.
+the SD BIN to CSV converter in the same user app.
 """
 
 from __future__ import annotations

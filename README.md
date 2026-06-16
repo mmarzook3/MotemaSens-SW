@@ -2,15 +2,15 @@
 
 Public flashing package for MotemaSens devices.
 
-This repository contains only customer flashing files:
+This repository contains only public release files:
 
 - Windows updater GUI
-- Customer USB logging and SD log conversion tools
+- USB logging and SD log conversion tools
 - Released ESP32 binary files
 - Released Android app APK
 - Release manifest and checksums
 
-It does not contain private firmware source code, customer data, factory secrets, or development logs.
+It does not contain private firmware source code, user data, factory secrets, or development logs.
 
 ## Fast Start
 
@@ -25,24 +25,24 @@ run_motemasens_sw_updater.bat
 
 The BAT file checks Python prerequisites, installs `pyserial` and `esptool` if missing, then opens the updater GUI.
 
-## Customer Tools
+## MotemaSens Tools
 
 USB live logging and SD log conversion tools are included under:
 
 ```text
-customer_tools
+motemasens_tools
 ```
 
 For direct USB logging, status viewing, USB start/stop control and SD `.bin` to CSV conversion from one GUI, run:
 
 ```text
-customer_tools\usb_logger\run_motemasens_usb_logger.bat
+motemasens_tools\usb_logger\run_motemasens_usb_logger.bat
 ```
 
 For only converting an SD card binary log to CSV, run:
 
 ```text
-customer_tools\bin2csv\run_bin2csv_gui.bat
+motemasens_tools\bin2csv\run_bin2csv_gui.bat
 ```
 
 The USB logger uses the ESP32 USB serial commands `S`, `X`, and `DEVICE_SERIAL?`. It saves live USB `LOG_HEADER`/`LOG` rows to CSV and can optionally save the full raw serial output beside the CSV.
@@ -101,8 +101,8 @@ The updater:
 ## Release Policy
 
 Only approved releases from `mmarzook3/MotemaSens` main branch are published here.
-Private firmware source, development logs, debug builds, secrets, and factory credentials are not published to this repository. The customer mobile app source is mirrored under `mobile_app/` for release transparency.
+Private firmware source, development logs, debug builds, secrets, and factory credentials are not published to this repository. The mobile app source is mirrored under `mobile_app/` for release transparency.
 
 ## Mobile App Release Notes
 
-The mobile app source is mirrored into `mobile_app/` for customer-visible release builds. Released APK files are stored under `mobile_releases/<version>/`, and the non-breaking `app` block in `manifest.json` lets the app check for updates without changing the firmware manifest fields.
+The mobile app source is mirrored into `mobile_app/` for public release builds. Released APK files are stored under `mobile_releases/<version>/`, and the non-breaking `app` block in `manifest.json` lets the app check for updates without changing the firmware manifest fields.

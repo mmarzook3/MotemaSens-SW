@@ -1,6 +1,6 @@
 # MotemaSens USB Logger
 
-This is the customer/support PC tool for MotemaSens USB serial logging.
+This is the device support PC tool for MotemaSens USB serial logging.
 
 ## What it does
 
@@ -23,7 +23,7 @@ This is the customer/support PC tool for MotemaSens USB serial logging.
   - beat count and BPM
   - ECG status
 - Shows a small live preview of MIC and ECG traces.
-- Converts SD card `.bin` files to CSV using the same converter as `tools/customer_tools/bin2csv`.
+- Converts SD card `.bin` files to CSV using the same converter as `motemasens_tools/bin2csv`.
 
 ## How to run on Windows
 
@@ -45,7 +45,7 @@ The BAT file checks for Python, installs `pyserial` if needed, then opens the GU
 COM7 - USB-Enhanced-SERIAL CH343
 ```
 
-4. Use baud `115200` for current customer firmware.
+4. Use baud `115200` for current release firmware.
 5. Use baud `921600` only for older fast dev firmware that was built for that baud.
 6. Choose an output folder and CSV filename.
 7. Click `Connect`.
@@ -87,7 +87,7 @@ The converter expects MotemaSens binary logs with the `MSLOGB1` header.
 | --- | --- |
 | No COM port shown | Use a USB data cable, reconnect the device, then click `Refresh`. |
 | Flashing tool cannot use the port | Close this USB Logger first. Only one program can own the COM port. |
-| No rows after Start | Check baud rate. Current customer firmware uses `115200`. |
+| No rows after Start | Check baud rate. Current release firmware uses `115200`. |
 | Strange characters in serial view | Wrong baud rate selected. Try `115200`, then `921600`. |
 | CSV is empty | Confirm `LIVE_TEST_START` appears after clicking Start. |
 | Device does not stop | Click Stop again or disconnect USB after saving the current capture. |

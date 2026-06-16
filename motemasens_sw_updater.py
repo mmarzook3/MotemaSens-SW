@@ -1,4 +1,4 @@
-"""Customer firmware updater for MotemaSens ESP32 devices.
+"""User firmware updater for MotemaSens ESP32 devices.
 
 This tool intentionally only flashes released binary images from the public
 MotemaSens-SW repository. It does not contain firmware source or factory

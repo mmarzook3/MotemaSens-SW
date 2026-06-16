@@ -4,7 +4,7 @@
   "firmware_version": "dev-2026.06.15.28-lcd-sd-footer",
   "source_commit": "d984c32c0720108ecfa40f458554c0b9daeee36f",
   "release_date": "2026-06-15",
-  "notes": "Customer v2 release with 3 lead ECG baseline, SD binary logging support, BLE/local/remote controls, battery status, and round LCD MIC/ECG status view.",
+  "notes": "User v2 release with 3 lead ECG baseline, SD binary logging support, BLE/local/remote controls, battery status, and round LCD MIC/ECG status view.",
   "files": {
     "bootloader": {
       "path": "releases/v2/bootloader.bin",

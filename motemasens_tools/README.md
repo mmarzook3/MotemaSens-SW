@@ -1,13 +1,13 @@
-# MotemaSens Customer Tools
+# MotemaSens Tools
 
-This folder contains Windows tools that can be shared with customers.
+This folder contains Windows tools for MotemaSens devices.
 
 ## USB Logger
 
 Folder:
 
 ```text
-tools/customer_tools/usb_logger
+motemasens_tools/usb_logger
 ```
 
 Run:
@@ -24,7 +24,7 @@ SD `.bin` to CSV conversion from one GUI.
 Folder:
 
 ```text
-tools/customer_tools/bin2csv
+motemasens_tools/bin2csv
 ```
 
 Run:
