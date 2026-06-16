@@ -9,7 +9,7 @@ The app opens to four connection choices:
 - `Local`: control a nearby ESP32 by IP address on the same WiFi.
 - `Remote`: connect to the MotemaSens VPS endpoint at `https://ms.nwatt.uk`.
 - `BLE`: nearby BLE control for normal recording controls.
-- `Debug`: locked support tools. This screen requires developer code `1234`.
+- `Debug`: locked support tools. This screen requires developer code `12345`.
 
 There is no demo/offline device mode in the production UI. If the device is not reachable, the app shows a connection error instead of fake data.
 
@@ -17,7 +17,7 @@ There is no demo/offline device mode in the production UI. If the device is not 
 
 The Debug screen is for bring-up and customer support only.
 
-After entering code `1234`, the app can:
+After entering code `12345`, the app can:
 
 - Scan for the MotemaSens BLE device.
 - Read compact BLE status.
@@ -55,52 +55,6 @@ BLE commands used by the app:
 {"command":"set_recording_mode","mode":"all"}
 ```
 
-## App Update Flow
-
-The startup screen reads the public MotemaSens-SW manifest:
-
-```text
-https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/manifest.json
-```
-
-The app uses the top-level `app` block only. Firmware OTA still uses the existing firmware release fields and remains separate in the Software Update screen.
-
-Manifest fields used by the app:
-
-- `app.latest`: latest Flutter app version, for example `1.0.27+27`.
-- `app.releases[].version`: app version to compare with the installed version.
-- `app.releases[].publicVersion`: customer release label, for example `v2`.
-- `app.releases[].platforms.android.playStoreUrl`: Play Store fallback URL.
-- `app.releases[].platforms.android.playInAppUpdateSupported`: enables Play in-app update attempt.
-- `app.releases[].platforms.android.apk.url`: direct APK fallback.
-- `app.releases[].platforms.ios.appStoreUrl`: iOS update URL.
-
-## Release Process
-
-Manual release:
-
-```powershell
-cd C:\codex\MotemaSens-SW\mobile_app
-flutter pub get
-flutter analyze
-flutter build apk --release
-```
-
-Copy the APK into `mobile_releases/<public-version>/`, then run:
-
-```powershell
-cd C:\codex\MotemaSens-SW
-python scripts\update_mobile_manifest.py `
-  --version "1.0.27+27" `
-  --public-version "v2" `
-  --name "MotemaSens Mobile v2" `
-  --apk "mobile_releases/v2/motemasens-mobile-v2.apk" `
-  --notes "Release notes" `
-  --source-commit "<MotemaSens source commit>"
-```
-
-The GitHub workflow `.github/workflows/mobile-release.yml` can also build and update the manifest from manual inputs.
-
 ## Build And Test
 
 ```powershell
@@ -125,6 +79,11 @@ adb -s emulator-5554 install -r build\app\outputs\flutter-apk\app-debug.apk
 The debug APK is for bench testing. A customer/Play Store release still needs a proper Android release keystore and `flutter build apk --release` or app bundle signing setup.
 
 ## Changelog
+
+### 1.0.28+28
+
+- Local mode now shows the WiFi network name currently used by the phone, where Android permissions allow it.
+- Debug access code changed to `12345`.
 
 ### 1.0.27+27
 

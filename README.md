@@ -30,13 +30,13 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v2` |
-| Flutter app version | `1.0.27+27` |
-| Download APK | [motemasens-mobile-v2.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk) |
-| Checksum | [motemasens-mobile-v2.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v2/motemasens-mobile-v2.apk.sha256) |
+| App public version | `v3` |
+| Flutter app version | `1.0.28+28` |
+| Download APK | [motemasens-mobile-v3.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v3/motemasens-mobile-v3.apk) |
+| Checksum | [motemasens-mobile-v3.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v3/motemasens-mobile-v3.apk.sha256) |
 | Release metadata | [manifest.json app section](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/manifest.json) |
 
-On Android, download the APK, open it, and allow install from browser/files if Android asks. This v2 APK is signed for direct sideload testing until Play Store signing is configured.
+On Android, download the APK, open it, and allow install from browser/files if Android asks. This APK is signed for direct sideload testing until Play Store signing is configured.
 
 ## Current Release
 

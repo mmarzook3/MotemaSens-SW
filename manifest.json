@@ -121,8 +121,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.27+27",
+    "latest": "1.0.28+28",
     "releases": [
+      {
+        "version": "1.0.28+28",
+        "publicVersion": "v3",
+        "name": "MotemaSens Mobile v3",
+        "releaseDate": "2026-06-16",
+        "notes": "Adds phone WiFi name in Local mode and changes Debug access code to 12345.",
+        "sourceCommit": "182147b",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v3/motemasens-mobile-v3.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v3/motemasens-mobile-v3.apk",
+              "sha256": "24fdd66b9fd05ac31158e49f79e08dd9c217a12fc3e21dded8b6aba1a0ddffaa",
+              "size": 52203638
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.27+27",
         "publicVersion": "v2",

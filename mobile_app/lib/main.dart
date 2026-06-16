@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 
@@ -51,7 +52,7 @@ final Guid motemaBleCommandUuid = Guid('9f6d0003-6f2b-4e45-9f2f-6b4f4d53454e');
 final Guid motemaBleWifiProvisionUuid =
     Guid('9f6d0004-6f2b-4e45-9f2f-6b4f4d53454e');
 
-const String developerPassword = '1234';
+const String developerPassword = '12345';
 const String defaultRemoteApiBase = 'https://ms.nwatt.uk';
 const String defaultRemoteUsername = 'test';
 const String defaultRemotePassword = 'motemasens';
@@ -3178,6 +3179,7 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
   Timer? _pollTimer;
   Timer? _livePaintTimer;
   Timer? _livePollTimer;
+  final NetworkInfo _networkInfo = NetworkInfo();
   DeviceApi? _api;
   bool _liveStreaming = false;
   String _liveMessage = 'Live stream idle';
@@ -3189,6 +3191,13 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
   List<SdLogFile> _sdFiles = const [];
   bool _sdLoading = false;
   String _sdMessage = 'Connect by IP to browse SD logs.';
+  String _phoneWifiName = 'Checking phone WiFi...';
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshPhoneWifi();
+  }
 
   @override
   void dispose() {
@@ -3206,6 +3215,32 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         _events.removeLast();
       }
     });
+  }
+
+  Future<void> _refreshPhoneWifi() async {
+    try {
+      var permission = await Permission.locationWhenInUse.status;
+      if (permission.isDenied || permission.isRestricted) {
+        permission = await Permission.locationWhenInUse.request();
+      }
+      if (!permission.isGranted && !permission.isLimited) {
+        if (!mounted) return;
+        setState(() => _phoneWifiName = 'WiFi name unavailable');
+        return;
+      }
+
+      final rawSsid = await _networkInfo.getWifiName();
+      final ssid =
+          rawSsid?.replaceAll('"', '').replaceAll('<unknown ssid>', '').trim();
+      if (!mounted) return;
+      setState(() {
+        _phoneWifiName =
+            ssid == null || ssid.isEmpty ? 'WiFi name unavailable' : ssid;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _phoneWifiName = 'WiFi name unavailable');
+    }
   }
 
   Future<void> _connect() async {
@@ -3625,6 +3660,7 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         snapshot: _snapshot,
         connection: _connection,
         baseUrlController: _baseUrlController,
+        phoneWifiName: _phoneWifiName,
         ecgSamples: _ecgSamples,
         onConnect: _connect,
         onDisconnect: _disconnect,
@@ -3665,7 +3701,10 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         actions: [
           IconButton(
             tooltip: 'Refresh',
-            onPressed: () => _refreshStatus(),
+            onPressed: () {
+              _refreshPhoneWifi();
+              _refreshStatus();
+            },
             icon: const Icon(Icons.refresh),
           ),
         ],
@@ -3698,6 +3737,7 @@ class _DashboardView extends StatelessWidget {
     required this.snapshot,
     required this.connection,
     required this.baseUrlController,
+    required this.phoneWifiName,
     required this.ecgSamples,
     required this.onConnect,
     required this.onDisconnect,
@@ -3711,6 +3751,7 @@ class _DashboardView extends StatelessWidget {
   final DeviceSnapshot snapshot;
   final ConnectionStateKind connection;
   final TextEditingController baseUrlController;
+  final String phoneWifiName;
   final List<double> ecgSamples;
   final VoidCallback onConnect;
   final VoidCallback onDisconnect;
@@ -3729,6 +3770,7 @@ class _DashboardView extends StatelessWidget {
         _ConnectionPanel(
           connection: connection,
           baseUrlController: baseUrlController,
+          phoneWifiName: phoneWifiName,
           onConnect: onConnect,
           onDisconnect: onDisconnect,
         ),
@@ -3758,12 +3800,14 @@ class _ConnectionPanel extends StatelessWidget {
   const _ConnectionPanel({
     required this.connection,
     required this.baseUrlController,
+    required this.phoneWifiName,
     required this.onConnect,
     required this.onDisconnect,
   });
 
   final ConnectionStateKind connection;
   final TextEditingController baseUrlController;
+  final String phoneWifiName;
   final VoidCallback onConnect;
   final VoidCallback onDisconnect;
 
@@ -3781,6 +3825,8 @@ class _ConnectionPanel extends StatelessWidget {
                 label: _connectionLabel(connection),
                 tone: connected ? _Tone.good : _Tone.warn),
           ),
+          const SizedBox(height: 12),
+          _PhoneWifiRow(wifiName: phoneWifiName),
           const SizedBox(height: 12),
           TextField(
             controller: baseUrlController,
@@ -3808,6 +3854,45 @@ class _ConnectionPanel extends StatelessWidget {
                 icon: const Icon(Icons.link_off),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PhoneWifiRow extends StatelessWidget {
+  const _PhoneWifiRow({required this.wifiName});
+
+  final String wifiName;
+
+  @override
+  Widget build(BuildContext context) {
+    final unavailable = wifiName.toLowerCase().contains('unavailable');
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.55),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            unavailable ? Icons.wifi_off : Icons.wifi,
+            color: unavailable ? colorScheme.error : colorScheme.primary,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              'Phone WiFi: $wifiName',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
           ),
         ],
       ),
