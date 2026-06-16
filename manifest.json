@@ -121,8 +121,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.28+28",
+    "latest": "1.0.29+29",
     "releases": [
+      {
+        "version": "1.0.29+29",
+        "publicVersion": "v4",
+        "name": "MotemaSens Mobile v4",
+        "releaseDate": "2026-06-16",
+        "notes": "Major app update test release. Publishes the current Local WiFi display and Debug code 12345 app as a new update target.",
+        "sourceCommit": "98b62f9",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v4/motemasens-mobile-v4.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v4/motemasens-mobile-v4.apk",
+              "sha256": "7f05cd5ef9e958ab947ec7f9a0334e3cceee27735c276b653d9928a8848d65b5",
+              "size": 52203638
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.28+28",
         "publicVersion": "v3",

@@ -80,6 +80,10 @@ The debug APK is for bench testing. A customer/Play Store release still needs a 
 
 ## Changelog
 
+### 1.0.29+29
+
+- Published as MotemaSens Mobile `v4` so installed v3 apps can test the app update path.
+
 ### 1.0.28+28
 
 - Local mode now shows the WiFi network name currently used by the phone, where Android permissions allow it.
