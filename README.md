@@ -5,6 +5,7 @@ Public flashing package for MotemaSens devices.
 This repository contains only customer flashing files:
 
 - Windows updater GUI
+- Customer USB logging and SD log conversion tools
 - Released ESP32 binary files
 - Released Android app APK
 - Release manifest and checksums
@@ -23,6 +24,28 @@ run_motemasens_sw_updater.bat
 ```
 
 The BAT file checks Python prerequisites, installs `pyserial` and `esptool` if missing, then opens the updater GUI.
+
+## Customer Tools
+
+USB live logging and SD log conversion tools are included under:
+
+```text
+customer_tools
+```
+
+For direct USB logging, status viewing, USB start/stop control and SD `.bin` to CSV conversion from one GUI, run:
+
+```text
+customer_tools\usb_logger\run_motemasens_usb_logger.bat
+```
+
+For only converting an SD card binary log to CSV, run:
+
+```text
+customer_tools\bin2csv\run_bin2csv_gui.bat
+```
+
+The USB logger uses the ESP32 USB serial commands `S`, `X`, and `DEVICE_SERIAL?`. It saves live USB `LOG_HEADER`/`LOG` rows to CSV and can optionally save the full raw serial output beside the CSV.
 
 ## Android App Download
 
