@@ -2,6 +2,24 @@
 
 This folder contains Windows tools for MotemaSens devices.
 
+## Device Software Updater
+
+Folder:
+
+```text
+motemasens_tools/sw_updater
+```
+
+Run:
+
+```text
+run_motemasens_sw_updater.bat
+```
+
+Use this to install a released MotemaSens device software version over USB.
+Close any serial monitor, USB logger, or other program using the device COM
+port before flashing.
+
 ## USB Logger
 
 Folder:

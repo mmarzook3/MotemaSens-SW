@@ -257,7 +257,7 @@ Use the updater when a new MotemaSens device release is provided.
 4. Run:
 
 ```text
-run_motemasens_sw_updater.bat
+motemasens_tools\sw_updater\run_motemasens_sw_updater.bat
 ```
 
 5. Select the released version.
@@ -266,6 +266,18 @@ run_motemasens_sw_updater.bat
 8. Wait until flashing is complete and the device restarts.
 
 Do not unplug the device during flashing.
+
+## MotemaSens Tools
+
+The Windows tools are kept under `motemasens_tools`.
+
+| Tool | Run this file | Use it for |
+| --- | --- | --- |
+| Device Software Updater | `motemasens_tools\sw_updater\run_motemasens_sw_updater.bat` | Install a released MotemaSens device software version over USB. |
+| USB Logger | `motemasens_tools\usb_logger\run_motemasens_usb_logger.bat` | Start/stop USB logging, view live USB data, and save CSV logs. |
+| SD BIN to CSV Converter | `motemasens_tools\bin2csv\run_bin2csv_gui.bat` | Convert SD card `.bin` log files into CSV files. |
+
+Before using the software updater, close any serial monitor, USB logger, or other program using the MotemaSens COM port.
 
 ## Current Device Release
 
@@ -298,8 +310,9 @@ MotemaSens logs may contain personal physiological and motion data. Store, share
 | --- | --- |
 | `mobile_releases` | Released Android APK files. |
 | `releases` | Released device software files. |
-| `motemasens_tools` | USB logger and log conversion tools. |
-| `run_motemasens_sw_updater.bat` | Windows device software updater launcher. |
+| `motemasens_tools\sw_updater` | Windows device software updater. |
+| `motemasens_tools\usb_logger` | USB logger and live capture tool. |
+| `motemasens_tools\bin2csv` | SD binary log to CSV converter. |
 | `manifest.json` | Release information used by the updater and app. |
 
 ## Logging Issues and Incidents
