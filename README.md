@@ -301,3 +301,92 @@ MotemaSens logs may contain personal physiological and motion data. Store, share
 | `motemasens_tools` | USB logger and log conversion tools. |
 | `run_motemasens_sw_updater.bat` | Windows device software updater launcher. |
 | `manifest.json` | Release information used by the updater and app. |
+
+## Logging Issues and Incidents
+
+Use GitHub Issues in this repository to report problems, incidents, questions, or feature requests.
+
+Open the Issues page:
+
+[MotemaSens-SW Issues](https://github.com/mmarzook3/MotemaSens-SW/issues)
+
+Then click:
+
+```text
+New issue
+```
+
+### Good Issue Titles
+
+Use short, clear titles:
+
+```text
+[INCIDENT] USB logger cannot connect to COM port
+[BUG] Battery shows No Battery while battery is connected
+[SD] Log file is not visible in app Storage tab
+[APP] BLE scan does not find the device
+[REQUEST] Add export option for converted CSV
+```
+
+### What to Include
+
+Copy and paste this into the issue description:
+
+```text
+Device serial:
+Device software version:
+Mobile app version:
+PC tool version, if used:
+Connection mode: Local / BLE / Remote / USB
+Date and time:
+
+What happened:
+
+What did you expect to happen:
+
+Steps to reproduce:
+1.
+2.
+3.
+
+Files attached:
+- Screenshot:
+- CSV log:
+- Serial text log:
+- SD .bin file, if safe to share:
+
+Priority: Low / Medium / High / Blocking
+```
+
+### Labels to Use
+
+If you have permission to add labels, use the most relevant ones:
+
+```text
+incident
+bug
+app
+device
+usb-logging
+sd-logging
+ble
+wifi
+remote
+documentation
+question
+feature-request
+needs-test
+fixed
+```
+
+### Linking Fixes
+
+When a fix is made, link the issue number in the commit or pull request:
+
+```text
+Fix USB logger COM port detection
+
+Fixes #12
+```
+
+GitHub will then link the fix to issue `#12`, making it easier to track what changed and when it was resolved.
