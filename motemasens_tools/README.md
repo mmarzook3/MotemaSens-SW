@@ -37,6 +37,23 @@ run_motemasens_usb_logger.bat
 Use this for direct USB live logging, USB control, serial status viewing, and
 SD `.bin` to CSV conversion from one GUI.
 
+## MATLAB Log Viewer
+
+Folder:
+
+```text
+motemasens_tools/matlab_log_viewer
+```
+
+Run in MATLAB:
+
+```text
+plottingdata_clean_ecg.m
+```
+
+Use this to open MotemaSens `.bin` or `.csv` logs and review ECG quality,
+cleaned ECG plots, microphone data, and movement data.
+
 ## SD BIN to CSV Converter
 
 Folder:

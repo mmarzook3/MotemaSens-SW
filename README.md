@@ -275,6 +275,7 @@ The Windows tools are kept under `motemasens_tools`.
 | --- | --- | --- |
 | Device Software Updater | `motemasens_tools\sw_updater\run_motemasens_sw_updater.bat` | Install a released MotemaSens device software version over USB. |
 | USB Logger | `motemasens_tools\usb_logger\run_motemasens_usb_logger.bat` | Start/stop USB logging, view live USB data, and save CSV logs. |
+| MATLAB Log Viewer | `motemasens_tools\matlab_log_viewer\plottingdata_clean_ecg.m` | Open `.bin` or `.csv` logs in MATLAB and review ECG quality. |
 | SD BIN to CSV Converter | `motemasens_tools\bin2csv\run_bin2csv_gui.bat` | Convert SD card `.bin` log files into CSV files. |
 
 Before using the software updater, close any serial monitor, USB logger, or other program using the MotemaSens COM port.
@@ -312,6 +313,7 @@ MotemaSens logs may contain personal physiological and motion data. Store, share
 | `releases` | Released device software files. |
 | `motemasens_tools\sw_updater` | Windows device software updater. |
 | `motemasens_tools\usb_logger` | USB logger and live capture tool. |
+| `motemasens_tools\matlab_log_viewer` | MATLAB log viewer for ECG, microphone, and movement logs. |
 | `motemasens_tools\bin2csv` | SD binary log to CSV converter. |
 | `manifest.json` | Release information used by the updater and app. |
 
