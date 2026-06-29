@@ -54,6 +54,12 @@ plottingdata_clean_ecg.m
 Use this to open MotemaSens `.bin` or `.csv` logs and review ECG quality,
 cleaned ECG plots, microphone data, and movement data.
 
+This was added for GitHub Issue #1:
+
+```text
+https://github.com/mmarzook3/MotemaSens-SW/issues/1
+```
+
 ## SD BIN to CSV Converter
 
 Folder:
