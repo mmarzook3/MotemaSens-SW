@@ -2,8 +2,46 @@
   "schema": 1,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v3",
+  "latest": "v4",
   "versions": [
+    {
+      "version": "v4",
+      "name": "MotemaSens v4",
+      "firmware_version": "dev-2026.06.29.1-issue2-sd-names",
+      "source_commit": "2b3201835952d96863ecadab1775ac2f7bbe0773",
+      "release_date": "2026-06-29",
+      "notes": "Issue #2 update: readable SD log names, newest-first file listing support, SD rename/delete endpoints, and local IP remember support for the app.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v4/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v4/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v4/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v4/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v4/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v4/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v4/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v4/firmware.bin",
+          "address": "0x10000",
+          "sha256": "c9d9eeb3d0b8b87f783d09e6607d5929991db6838ead94c2d6c2e4dc9c8cd41e",
+          "size": 1684640
+        }
+      }
+    },
     {
       "version": "v3",
       "name": "MotemaSens v3",
@@ -121,8 +159,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.29+29",
+    "latest": "1.0.30+30",
     "releases": [
+      {
+        "version": "1.0.30+30",
+        "publicVersion": "v5",
+        "name": "MotemaSens Mobile v5",
+        "releaseDate": "2026-06-29",
+        "notes": "Issue #2 update: remembers the last local device IP, shows readable SD log names, and adds SD log rename/delete actions in Local mode.",
+        "sourceCommit": "2b32018",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v5/motemasens-mobile-v5.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk",
+              "sha256": "1dd3f9df766db4be28731c0bb901f32dde8de566a3d3d8854c7a49e4078e5c21",
+              "size": 52246267
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.29+29",
         "publicVersion": "v4",

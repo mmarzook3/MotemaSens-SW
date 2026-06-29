@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_update_banner.dart';
 import 'app_update_service.dart';
@@ -60,6 +61,7 @@ const String publicSoftwareManifestUrl =
     'https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/manifest.json';
 const MethodChannel downloadsChannel =
     MethodChannel('uk.nwatt.motemasens/downloads');
+const String localBaseUrlPreferenceKey = 'local_base_url';
 
 double _jsonDouble(
   Map<String, dynamic> json,
@@ -709,6 +711,16 @@ class SdLogFile {
   final String name;
   final int sizeBytes;
 
+  String get displayName {
+    final match = RegExp(r'^MS_(\d{8})_(\d{6})_(.+)\.bin$').firstMatch(name);
+    if (match == null) return name;
+    final date = match.group(1)!;
+    final time = match.group(2)!;
+    final channels = match.group(3)!.replaceAll('_', ' + ');
+    return '${date.substring(6, 8)}/${date.substring(4, 6)}/${date.substring(0, 4)} '
+        '${time.substring(0, 2)}:${time.substring(2, 4)}:${time.substring(4, 6)}  $channels';
+  }
+
   String get displaySize {
     if (sizeBytes >= 1024 * 1024) {
       return '${(sizeBytes / (1024 * 1024)).toStringAsFixed(1)} MB';
@@ -928,12 +940,37 @@ class DeviceApi {
         .map(SdLogFile.fromJson)
         .where((file) => file.name.isNotEmpty)
         .toList();
-    files.sort((a, b) => b.name.compareTo(a.name));
+    files.sort(
+        (a, b) => _sdFileSortKey(b.name).compareTo(_sdFileSortKey(a.name)));
     return files;
+  }
+
+  String _sdFileSortKey(String name) {
+    final timestamp = RegExp(r'^MS_(\d{8})_(\d{6})_').firstMatch(name);
+    if (timestamp != null) {
+      return '${timestamp.group(1)}_${timestamp.group(2)}';
+    }
+    final counter = RegExp(r'^MS_REC_(\d+)_').firstMatch(name);
+    if (counter != null) {
+      return counter.group(1)!.padLeft(12, '0');
+    }
+    final legacy = RegExp(r'log_(\d+)').firstMatch(name);
+    if (legacy != null) {
+      return legacy.group(1)!.padLeft(12, '0');
+    }
+    return name;
   }
 
   Uri sdFileUri(String fileName) {
     return _uri('/api/sd/file?name=${Uri.encodeComponent(fileName)}');
+  }
+
+  Future<void> deleteSdFile(String fileName) async {
+    await _post('/api/sd/delete', {'name': fileName});
+  }
+
+  Future<void> renameSdFile(String oldName, String newName) async {
+    await _post('/api/sd/rename', {'old': oldName, 'new': newName});
   }
 
   Future<String> fetchSdFileCsvPreview(String fileName) async {
@@ -3196,6 +3233,7 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
   @override
   void initState() {
     super.initState();
+    _loadSavedLocalBaseUrl();
     _refreshPhoneWifi();
   }
 
@@ -3215,6 +3253,18 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         _events.removeLast();
       }
     });
+  }
+
+  Future<void> _loadSavedLocalBaseUrl() async {
+    if (widget.initialBaseUrl != null && widget.initialBaseUrl!.isNotEmpty) {
+      return;
+    }
+    final prefs = await SharedPreferences.getInstance();
+    final saved = prefs.getString(localBaseUrlPreferenceKey);
+    if (!mounted || saved == null || saved.isEmpty) {
+      return;
+    }
+    _baseUrlController.text = saved;
   }
 
   Future<void> _refreshPhoneWifi() async {
@@ -3256,6 +3306,8 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         _snapshot = snapshot;
         _connection = ConnectionStateKind.connected;
       });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(localBaseUrlPreferenceKey, baseUrl);
       _log('Connected to $baseUrl');
       _startPolling();
       await _refreshSdFiles(silent: true);
@@ -3626,6 +3678,87 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
     }
   }
 
+  Future<void> _deleteSdFile(SdLogFile file) async {
+    final api = _api;
+    if (api == null) {
+      _log('Connect by IP to delete SD files.');
+      return;
+    }
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete SD log?'),
+        content: Text('Delete ${file.name} from the device SD card?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) {
+      return;
+    }
+
+    try {
+      await api.deleteSdFile(file.name);
+      _log('Deleted ${file.name}.');
+      await _refreshSdFiles(silent: true);
+    } catch (error) {
+      _log('Delete failed: $error');
+    }
+  }
+
+  Future<void> _renameSdFile(SdLogFile file) async {
+    final api = _api;
+    if (api == null) {
+      _log('Connect by IP to rename SD files.');
+      return;
+    }
+    final controller = TextEditingController(text: file.name);
+    final newName = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Rename SD log'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          decoration: const InputDecoration(
+            labelText: 'New filename',
+            helperText: 'Use .bin extension',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(controller.text.trim()),
+            child: const Text('Rename'),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    if (newName == null || newName.isEmpty || newName == file.name) {
+      return;
+    }
+    final safeName = newName.endsWith('.bin') ? newName : '$newName.bin';
+    try {
+      await api.renameSdFile(file.name, safeName);
+      _log('Renamed ${file.name} to $safeName.');
+      await _refreshSdFiles(silent: true);
+    } catch (error) {
+      _log('Rename failed: $error');
+    }
+  }
+
   String _channelsLabel(Set<LoggingChannel> channels) {
     if (channels.isEmpty) return 'Idle';
     final labels = [
@@ -3692,6 +3825,8 @@ class _DeviceControllerScreenState extends State<DeviceControllerScreen> {
         onPreview: _previewSdFile,
         onDownload: _downloadSdFile,
         onCopyLink: _copySdDownloadLink,
+        onRename: _renameSdFile,
+        onDelete: _deleteSdFile,
       ),
     ];
 
@@ -4324,6 +4459,8 @@ class _StorageView extends StatelessWidget {
     required this.onPreview,
     required this.onDownload,
     required this.onCopyLink,
+    required this.onRename,
+    required this.onDelete,
   });
 
   final DeviceSnapshot snapshot;
@@ -4335,6 +4472,8 @@ class _StorageView extends StatelessWidget {
   final Future<void> Function(SdLogFile file) onPreview;
   final Future<void> Function(SdLogFile file) onDownload;
   final Future<void> Function(SdLogFile file) onCopyLink;
+  final Future<void> Function(SdLogFile file) onRename;
+  final Future<void> Function(SdLogFile file) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -4418,8 +4557,8 @@ class _StorageView extends StatelessWidget {
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.description_outlined),
-                  title: Text(file.name),
-                  subtitle: Text(file.displaySize),
+                  title: Text(file.displayName),
+                  subtitle: Text('${file.name}  |  ${file.displaySize}'),
                   trailing: Wrap(
                     spacing: 4,
                     children: [
@@ -4437,6 +4576,16 @@ class _StorageView extends StatelessWidget {
                         tooltip: 'Copy download link',
                         onPressed: () => onCopyLink(file),
                         icon: const Icon(Icons.link),
+                      ),
+                      IconButton(
+                        tooltip: 'Rename SD file',
+                        onPressed: () => onRename(file),
+                        icon: const Icon(Icons.drive_file_rename_outline),
+                      ),
+                      IconButton(
+                        tooltip: 'Delete SD file',
+                        onPressed: () => onDelete(file),
+                        icon: const Icon(Icons.delete_outline),
                       ),
                     ],
                   ),
