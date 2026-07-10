@@ -166,7 +166,7 @@
         "publicVersion": "v5",
         "name": "MotemaSens Mobile v5",
         "releaseDate": "2026-06-29",
-        "notes": "Issue #2 update: remembers the last local device IP, shows readable SD log names, and adds SD log rename/delete actions in Local mode.",
+        "notes": "Issue #2 update: signed installable APK, remembers the last local device IP, shows readable SD log names, and adds SD log rename/delete actions in Local mode.",
         "sourceCommit": "2b32018",
         "platforms": {
           "android": {
@@ -176,8 +176,8 @@
             "apk": {
               "path": "mobile_releases/v5/motemasens-mobile-v5.apk",
               "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk",
-              "sha256": "1dd3f9df766db4be28731c0bb901f32dde8de566a3d3d8854c7a49e4078e5c21",
-              "size": 52246267
+              "sha256": "5b0b84a9b4786dbc8ab5b3df3cc558cec51413809d4d3b532db4ecf8decec1d2",
+              "size": 52254459
             }
           },
           "ios": {

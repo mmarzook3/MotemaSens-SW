@@ -26,12 +26,14 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v4` |
-| App version | `1.0.29+29` |
-| Download APK | [motemasens-mobile-v4.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v4/motemasens-mobile-v4.apk) |
-| Checksum | [motemasens-mobile-v4.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v4/motemasens-mobile-v4.apk.sha256) |
+| App public version | `v5` |
+| App version | `1.0.30+30` |
+| Download APK | [motemasens-mobile-v5.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk) |
+| Checksum | [motemasens-mobile-v5.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk.sha256) |
 
 On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
+
+If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
 
 ## Device Display Guide
 
@@ -284,9 +286,9 @@ Before using the software updater, close any serial monitor, USB logger, or othe
 
 | Item | Value |
 | --- | --- |
-| Public version | `v3` |
-| Device software version | `dev-2026.06.15.34-battery-float` |
-| Release date | `2026-06-15` |
+| Public version | `v4` |
+| Device software version | `dev-2026.06.29.1-issue2-sd-names` |
+| Release date | `2026-06-29` |
 
 ## Troubleshooting
 
@@ -316,6 +318,8 @@ MotemaSens logs may contain personal physiological and motion data. Store, share
 | `motemasens_tools\matlab_log_viewer` | MATLAB log viewer for ECG, microphone, and movement logs. |
 | `motemasens_tools\bin2csv` | SD binary log to CSV converter. |
 | `manifest.json` | Release information used by the updater and app. |
+
+This public repository is only for released files, tools, and user documentation. It does not contain the Android app source code or device firmware source code.
 
 ## Logging Issues and Incidents
 
