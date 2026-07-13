@@ -159,8 +159,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.30+30",
+    "latest": "1.0.31+31",
     "releases": [
+      {
+        "version": "1.0.31+31",
+        "publicVersion": "v6",
+        "name": "MotemaSens Mobile v6",
+        "releaseDate": "2026-07-13",
+        "notes": "Fixes narrow-screen SD filename layout and validates delete/rename results so failed file actions are clearly reported.",
+        "sourceCommit": "a170db6da7fef258e7bb8f8f8fdb98a9552dfd83",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v6/motemasens-mobile-v6.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v6/motemasens-mobile-v6.apk",
+              "sha256": "b1f57031d934c2c7f05be8b06f3d9b6d284ff8011d1496dd7f3adfb3243aa9d4",
+              "size": 52254459
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.30+30",
         "publicVersion": "v5",

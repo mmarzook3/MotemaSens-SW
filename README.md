@@ -26,10 +26,10 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v5` |
-| App version | `1.0.30+30` |
-| Download APK | [motemasens-mobile-v5.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk) |
-| Checksum | [motemasens-mobile-v5.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v5/motemasens-mobile-v5.apk.sha256) |
+| App public version | `v6` |
+| App version | `1.0.31+31` |
+| Download APK | [motemasens-mobile-v6.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v6/motemasens-mobile-v6.apk) |
+| Checksum | [motemasens-mobile-v6.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v6/motemasens-mobile-v6.apk.sha256) |
 
 On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
 
@@ -185,6 +185,10 @@ When connected in Local mode:
 3. Select the log file.
 4. Download it to the phone, or copy the file link.
 5. Convert `.bin` files to CSV if needed.
+
+Each file is shown with its readable recording name, original filename, size, and a separate row of actions. Use the pencil button to rename a recording. Use the bin button to delete a recording, then confirm the filename in the dialog. The app reports whether the device completed or rejected the action.
+
+Stop active logging before renaming or deleting its current file.
 
 ## USB Logging on a PC
 
