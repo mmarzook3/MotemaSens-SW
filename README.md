@@ -20,6 +20,10 @@ MotemaSens is a portable monitoring device and mobile app for recording ECG, mic
 5. Use the app to start and stop logging.
 6. Use the PC tools in `motemasens_tools` if you need USB logging or SD log conversion.
 
+## ECG Algorithm Reference
+
+The public ECG acquisition algorithm, binary record layout, recording review, and standard-library validation tool are available in [Algorithms/ECG](Algorithms/ECG/). This reference is provided for engineering review and does not include the private firmware source code.
+
 ## Android App Download
 
 Current Android app release:
