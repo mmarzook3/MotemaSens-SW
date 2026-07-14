@@ -159,8 +159,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.31+31",
+    "latest": "1.0.32+32",
     "releases": [
+      {
+        "version": "1.0.32+32",
+        "publicVersion": "v7",
+        "name": "MotemaSens Mobile v7",
+        "releaseDate": "2026-07-14",
+        "notes": "Fixes SD delete and rename when the device returns an empty or non-JSON response, and verifies the file list before reporting success.",
+        "sourceCommit": "3d7a728",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v7/motemasens-mobile-v7.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v7/motemasens-mobile-v7.apk",
+              "sha256": "7b49c35caee892c5bc52ad80e1f5d1268d8ca113d895294bfdbd99af1421e917",
+              "size": 52336379
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.31+31",
         "publicVersion": "v6",
