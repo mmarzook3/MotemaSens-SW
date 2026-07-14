@@ -159,8 +159,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.32+32",
+    "latest": "1.0.33+33",
     "releases": [
+      {
+        "version": "1.0.33+33",
+        "publicVersion": "v8",
+        "name": "MotemaSens Mobile v8",
+        "releaseDate": "2026-07-14",
+        "notes": "Adds a POST fallback for SD delete and rename on older firmware builds, then verifies the final SD file list.",
+        "sourceCommit": "d822a02",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v8/motemasens-mobile-v8.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v8/motemasens-mobile-v8.apk",
+              "sha256": "894b5d8136ea3ed1ee18a07ced562be2fe574dbdd5b59dc66030095689cb03d5",
+              "size": 52352763
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.32+32",
         "publicVersion": "v7",
