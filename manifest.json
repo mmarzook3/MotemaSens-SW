@@ -2,8 +2,46 @@
   "schema": 1,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v4",
+  "latest": "v5",
   "versions": [
+    {
+      "version": "v5",
+      "name": "MotemaSens v5",
+      "firmware_version": "v5.0.0",
+      "source_commit": "d9f0e91",
+      "release_date": "2026-07-24",
+      "notes": "Official ECG acquisition reliability update: validates ECG frames, reports acquisition overruns and lead-off state, verifies ECG register configuration, and preserves raw ECG samples for logging and analysis.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v5/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v5/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v5/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v5/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v5/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v5/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v5/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v5/firmware.bin",
+          "address": "0x10000",
+          "sha256": "2b17c44cfb662eac8269c2ce1c48922d5f698089f6898b2765430e81df58ccd0",
+          "size": 1685648
+        }
+      }
+    },
     {
       "version": "v4",
       "name": "MotemaSens v4",

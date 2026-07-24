@@ -294,9 +294,9 @@ Before using the software updater, close any serial monitor, USB logger, or othe
 
 | Item | Value |
 | --- | --- |
-| Public version | `v4` |
-| Device software version | `dev-2026.06.29.1-issue2-sd-names` |
-| Release date | `2026-06-29` |
+| Public version | `v5` |
+| Device software version | `v5.0.0` |
+| Release date | `2026-07-24` |
 
 ## Troubleshooting
 
