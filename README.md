@@ -30,10 +30,10 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v8` |
-| App version | `1.0.33+33` |
-| Download APK | [motemasens-mobile-v8.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v8/motemasens-mobile-v8.apk) |
-| Checksum | [motemasens-mobile-v8.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v8/motemasens-mobile-v8.apk.sha256) |
+| App public version | `v9` |
+| App version | `1.0.34+34` |
+| Download APK | [motemasens-mobile-v9.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v9/motemasens-mobile-v9.apk) |
+| Checksum | [motemasens-mobile-v9.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v9/motemasens-mobile-v9.apk.sha256) |
 
 On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
 

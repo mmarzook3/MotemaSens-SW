@@ -235,8 +235,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.33+33",
+    "latest": "1.0.34+34",
     "releases": [
+      {
+        "version": "1.0.34+34",
+        "publicVersion": "v9",
+        "name": "MotemaSens Mobile v9",
+        "releaseDate": "2026-07-31",
+        "notes": "Adds support for MotemaSens v6 SD logs in the in-app binary preview and CSV conversion path, including four independently acquired microphone samples per ECG record.",
+        "sourceCommit": "853af2a",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v9/motemasens-mobile-v9.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v9/motemasens-mobile-v9.apk",
+              "sha256": "0f3248b307ed221beaa90f126d9c32f86f0ddd886404c4e875a56001f05551dd",
+              "size": 52352763
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.33+33",
         "publicVersion": "v8",
