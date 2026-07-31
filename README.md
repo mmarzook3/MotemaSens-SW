@@ -39,6 +39,12 @@ On Android, download the APK, open it, and allow install from browser or file ma
 
 If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
 
+## Device Software v6
+
+The latest device software is **MotemaSens v6**. Update it from the MotemaSens app when the device is connected to WiFi. The update improves the recorded microphone stream and adds clearer acquisition diagnostics. It keeps the ECG values saved to the SD card as direct raw acquisition data.
+
+Logs made with v6 use the updated SD log format. Use the latest [BIN to CSV converter](motemasens_tools/bin2csv/) included in this repository when converting them on a PC.
+
 ## Device Display Guide
 
 The round display is designed to show only the most important information.

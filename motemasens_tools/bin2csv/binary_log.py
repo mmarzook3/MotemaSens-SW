@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import struct
 from dataclasses import dataclass
@@ -26,6 +27,12 @@ CSV_HEADER = [
     "mic_seq8",
     "mic_trace",
     "mic_level",
+    "mic_first_us",
+    "mic_sample_seq",
+    "mic_raw_0",
+    "mic_raw_1",
+    "mic_raw_2",
+    "mic_raw_3",
     "acc_ms",
     "acc_seq8",
     "acc_x_g",
@@ -39,6 +46,7 @@ CSV_HEADER = [
 
 HEADER_STRUCT = struct.Struct("<8sHHIIB3s40s")
 RECORD_STRUCT = struct.Struct("<IIIIiiiIIhhhhhhhhHBBBBBBB3x")
+RECORD_STRUCT_V2 = struct.Struct("<IIIIiiiIIhhhhhhhhHBBBBBBB3xII4h")
 
 
 @dataclass(frozen=True)
@@ -61,9 +69,10 @@ def read_header(handle: BinaryIO) -> BinaryLogHeader:
         raise ValueError("Not a MotemaSens binary log: missing MSLOGB1 magic")
     if header_size < HEADER_STRUCT.size:
         raise ValueError(f"Bad header size: {header_size}")
-    if record_size != RECORD_STRUCT.size:
+    expected_record_size = RECORD_STRUCT_V2.size if format_version == 2 else RECORD_STRUCT.size
+    if record_size != expected_record_size:
         raise ValueError(f"Bad record size: {record_size}")
-    if format_version != 1:
+    if format_version not in (1, 2):
         raise ValueError(f"Unsupported binary log version: {format_version}")
 
     if header_size > HEADER_STRUCT.size:
@@ -80,12 +89,13 @@ def read_header(handle: BinaryIO) -> BinaryLogHeader:
 
 
 def iter_csv_rows(handle: BinaryIO) -> Iterable[list[str]]:
-    read_header(handle)
+    header = read_header(handle)
+    record_struct = RECORD_STRUCT_V2 if header.format_version == 2 else RECORD_STRUCT
     while True:
-        raw = handle.read(RECORD_STRUCT.size)
+        raw = handle.read(record_struct.size)
         if not raw:
             break
-        if len(raw) != RECORD_STRUCT.size:
+        if len(raw) != record_struct.size:
             break
 
         (
@@ -114,7 +124,16 @@ def iter_csv_rows(handle: BinaryIO) -> Iterable[list[str]]:
             mic_seq8,
             acc_seq8,
             acc_diag_flags,
-        ) = RECORD_STRUCT.unpack(raw)
+        ) = RECORD_STRUCT.unpack(raw[:RECORD_STRUCT.size])
+
+        mic_first_us = ""
+        mic_sequence = ""
+        mic_raw = ["", "", "", ""]
+        if header.format_version == 2:
+            mic_first_value, mic_sequence_value, *mic_raw_values = RECORD_STRUCT_V2.unpack(raw)[25:]
+            mic_first_us = str(mic_first_value)
+            mic_sequence = str(mic_sequence_value)
+            mic_raw = [f"{value / 32767.0:.4f}" for value in mic_raw_values]
 
         yield [
             "LOG",
@@ -134,6 +153,9 @@ def iter_csv_rows(handle: BinaryIO) -> Iterable[list[str]]:
             str(mic_seq8),
             f"{mic_trace_q15 / 32767.0:.4f}",
             f"{mic_level_q15 / 32767.0:.4f}",
+            mic_first_us,
+            mic_sequence,
+            *mic_raw,
             str(acc_ms),
             str(acc_seq8),
             f"{acc_x_mg / 1000.0:.4f}",
@@ -164,3 +186,20 @@ def convert_file(source: Path, destination: Path, overwrite: bool = False) -> in
 
 def default_destination(source: Path) -> Path:
     return source.with_suffix(".csv")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Convert MotemaSens binary SD logs to CSV.")
+    parser.add_argument("source", type=Path, help="Input .bin file from the SD card")
+    parser.add_argument("destination", type=Path, nargs="?", help="Output .csv file")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite output CSV if it already exists")
+    args = parser.parse_args()
+
+    destination = args.destination or default_destination(args.source)
+    rows = convert_file(args.source, destination, overwrite=args.overwrite)
+    print(f"Converted {rows} rows: {args.source} -> {destination}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

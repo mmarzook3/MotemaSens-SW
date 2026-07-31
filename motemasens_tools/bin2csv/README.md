@@ -1,13 +1,13 @@
 # MotemaSens BIN to CSV Converter
 
-This folder is the user-facing converter for MotemaSens SD card logs.
+This folder is the customer-facing converter for MotemaSens SD card logs.
 
 ## What it does
 
 - Opens a MotemaSens `.bin` file from the SD card.
 - Converts it to a CSV file.
 - Keeps the data format compatible with the MotemaSens CSV viewer.
-- Lets the user choose the output folder and filename.
+- Lets the customer choose the output folder and filename.
 - Can overwrite an existing CSV when needed.
 
 ## How to run
@@ -30,6 +30,11 @@ python bin2csv_gui.py
 The file must be a MotemaSens SD binary log written by the firmware.
 It starts with the `MSLOGB1` header and uses fixed-size records.
 
+The converter supports both the original v1 logs and v2 logs created by device
+software v6 or later. V2 CSV output includes `mic_raw_0` to `mic_raw_3`: four
+successive microphone samples stored with each 500 Hz ECG record, giving a
+2,000 Hz microphone stream without repeated display values.
+
 ## Output
 
 The output CSV contains the decoded ECG, MIC and IMU values so it can be opened in:
@@ -40,6 +45,6 @@ The output CSV contains the decoded ECG, MIC and IMU values so it can be opened 
 
 ## Notes
 
-- The tool is meant for user use.
+- The tool is meant for customer use.
 - It does not flash firmware.
 - It does not need the full private firmware repo.
