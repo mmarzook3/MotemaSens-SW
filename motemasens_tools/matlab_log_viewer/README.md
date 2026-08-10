@@ -18,6 +18,12 @@ https://github.com/mmarzook3/MotemaSens-SW/issues/1
 plottingdata_clean_ecg.m
 ```
 
+For v7 format-v3 recordings, use:
+
+```text
+read_motemasens_log.m
+```
+
 ## What It Opens
 
 - MotemaSens `.bin` files copied from the SD card.
@@ -26,10 +32,16 @@ plottingdata_clean_ecg.m
 ## How To Use
 
 1. Open MATLAB.
-2. Open `plottingdata_clean_ecg.m`.
-3. Press `Run`.
-4. Select the MotemaSens `.bin` or `.csv` log file.
-5. Review the ECG quality report and plots.
+2. For v1/v2/v3 reading, call:
+
+```matlab
+[T, info] = read_motemasens_log('log_123456.bin');
+```
+
+3. Review the table `T` and session summary `info`.
+4. `plottingdata_clean_ecg.m` remains available for the earlier ECG-quality plots.
+
+The v3 reader keeps microphone gaps, invalid ECG metadata and stale IMU fields explicit. It does not fill or remove missing data.
 
 ## Recommended Issue #1 Review Steps
 

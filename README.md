@@ -39,11 +39,13 @@ On Android, download the APK, open it, and allow install from browser or file ma
 
 If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
 
-## Device Software v6
+## Device Software v7
 
-The latest device software is **MotemaSens v6**. Update it from the MotemaSens app when the device is connected to WiFi. The update improves the recorded microphone stream and adds clearer acquisition diagnostics. It keeps the ECG values saved to the SD card as direct raw acquisition data.
+The latest device software is **MotemaSens v7.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This is a formal validation release for the next ECG, microphone and IMU recording tests. It adds the format-v3 session diagnostics, timing metadata, recording-health status view and a rolling ECG/MIC display window.
 
-Logs made with v6 use the updated SD log format. Use the latest [BIN to CSV converter](motemasens_tools/bin2csv/) included in this repository when converting them on a PC.
+The release has passed software build and conversion checks. Physical device validation is still being completed, so please follow the test instructions provided for this release and share the original SD recording plus the post-recording status when requested.
+
+Logs made with v7 use SD log format v3. Use the updated [BIN to CSV converter](motemasens_tools/bin2csv/) or [MATLAB log reader](motemasens_tools/matlab_log_viewer/) included in this repository.
 
 ## Device Display Guide
 

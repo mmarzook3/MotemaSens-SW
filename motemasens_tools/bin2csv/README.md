@@ -30,10 +30,15 @@ python bin2csv_gui.py
 The file must be a MotemaSens SD binary log written by the firmware.
 It starts with the `MSLOGB1` header and uses fixed-size records.
 
-The converter supports both the original v1 logs and v2 logs created by device
-software v6 or later. V2 CSV output includes `mic_raw_0` to `mic_raw_3`: four
-successive microphone samples stored with each 500 Hz ECG record, giving a
-2,000 Hz microphone stream without repeated display values.
+The converter supports v1, v2 and v3 logs. V2 CSV output includes `mic_raw_0`
+to `mic_raw_3`: four successive microphone samples stored with each 500 Hz ECG
+record, giving a 2,000 Hz microphone stream without repeated display values.
+
+V3 logs from device software v7 add microphone validity and missing-block reason
+fields, IMU validity/age/sequence fields, and a clean-stop session trailer. The
+converter verifies the v3 payload CRC32 and reports the session state after
+conversion. Missing microphone blocks remain marked in the CSV; they are not
+replaced with silent samples or removed from the timeline.
 
 ## Output
 
