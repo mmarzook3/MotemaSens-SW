@@ -1,0 +1,38 @@
+{
+  "version": "v8",
+  "name": "MotemaSens Firmware v8",
+  "firmware_version": "v8.0.0",
+  "source_commit": "fe20d55",
+  "release_date": "2026-08-15",
+  "notes": "Field-validation release with recording-integrity, timing and diagnostic improvements. Physical device validation is pending.",
+  "files": {
+    "bootloader": {
+      "path": "releases/v8/bootloader.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/bootloader.bin",
+      "address": "0x0",
+      "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+      "size": 15104
+    },
+    "partitions": {
+      "path": "releases/v8/partitions.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/partitions.bin",
+      "address": "0x8000",
+      "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+      "size": 3072
+    },
+    "boot_app0": {
+      "path": "releases/v8/boot_app0.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/boot_app0.bin",
+      "address": "0xe000",
+      "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+      "size": 8192
+    },
+    "firmware": {
+      "path": "releases/v8/firmware.bin",
+      "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/firmware.bin",
+      "address": "0x10000",
+      "sha256": "ca6bb3478a7ea7f1b009196d664829dd80c1f9f6afc15e8be950bffd4ea394a7",
+      "size": 1697008
+    }
+  }
+}

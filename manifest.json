@@ -2,8 +2,46 @@
   "schema": 1,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v7",
+  "latest": "v8",
   "versions": [
+    {
+      "version": "v8",
+      "name": "MotemaSens Firmware v8",
+      "firmware_version": "v8.0.0",
+      "source_commit": "fe20d55",
+      "release_date": "2026-08-15",
+      "notes": "Field-validation release with recording-integrity, timing and diagnostic improvements. Physical device validation is pending.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v8/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v8/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v8/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v8/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v8/firmware.bin",
+          "address": "0x10000",
+          "sha256": "ca6bb3478a7ea7f1b009196d664829dd80c1f9f6afc15e8be950bffd4ea394a7",
+          "size": 1697008
+        }
+      }
+    },
     {
       "version": "v7",
       "name": "MotemaSens v7",
@@ -273,8 +311,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.34+34",
+    "latest": "1.0.35+35",
     "releases": [
+      {
+        "version": "1.0.35+35",
+        "publicVersion": "v10",
+        "name": "MotemaSens Mobile v10",
+        "releaseDate": "2026-08-15",
+        "notes": "Paired field-validation app release for MotemaSens firmware v8. Adds format-v4 log compatibility and updates the Android build/plugin compatibility baseline.",
+        "sourceCommit": "fe20d55",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v10/motemasens-mobile-v10.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v10/motemasens-mobile-v10.apk",
+              "sha256": "b5a0b6ffc3e8fc61ded953c51108f5fc6db1ac91c2aed06dcf6233970a6edac6",
+              "size": 52451267
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.34+34",
         "publicVersion": "v9",

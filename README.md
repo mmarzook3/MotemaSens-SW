@@ -30,22 +30,22 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v9` |
-| App version | `1.0.34+34` |
-| Download APK | [motemasens-mobile-v9.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v9/motemasens-mobile-v9.apk) |
-| Checksum | [motemasens-mobile-v9.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v9/motemasens-mobile-v9.apk.sha256) |
+| App public version | `v10` |
+| App version | `1.0.35+35` |
+| Download APK | [motemasens-mobile-v10.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v10/motemasens-mobile-v10.apk) |
+| Checksum | [motemasens-mobile-v10.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v10/motemasens-mobile-v10.apk.sha256) |
 
 On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
 
 If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
 
-## Device Software v7
+## Device Software v8
 
-The latest device software is **MotemaSens v7.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This is a formal validation release for the next ECG, microphone and IMU recording tests. It adds the format-v3 session diagnostics, timing metadata, recording-health status view and a rolling ECG/MIC display window.
+The latest device software is **MotemaSens v8.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This field-validation release adds format-v4 recording-session boundaries, explicit sample-gap reporting, independent stream timestamps/counters, and improved ECG, microphone and IMU recording diagnostics.
 
-The release has passed software build and conversion checks. Physical device validation is still being completed, so please follow the test instructions provided for this release and share the original SD recording plus the post-recording status when requested.
+The release has passed software build, simulation and conversion checks. Physical device validation is still required, so please follow the test instructions provided for this release and share the original SD recording plus the post-recording status when requested.
 
-Logs made with v7 use SD log format v3. Use the updated [BIN to CSV converter](motemasens_tools/bin2csv/) or [MATLAB log reader](motemasens_tools/matlab_log_viewer/) included in this repository.
+Logs made with v8 use SD log format v4. Use the updated [BIN to CSV converter](motemasens_tools/bin2csv/) or [MATLAB log reader](motemasens_tools/matlab_log_viewer/) included in this repository.
 
 ## Device Display Guide
 
