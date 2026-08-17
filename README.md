@@ -30,18 +30,18 @@ Current Android app release:
 
 | Item | Value |
 | --- | --- |
-| App public version | `v10` |
-| App version | `1.0.35+35` |
-| Download APK | [motemasens-mobile-v10.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v10/motemasens-mobile-v10.apk) |
-| Checksum | [motemasens-mobile-v10.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v10/motemasens-mobile-v10.apk.sha256) |
+| App public version | `v11` |
+| App version | `1.0.36+36` |
+| Download APK | [motemasens-mobile-v11.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v11/motemasens-mobile-v11.apk) |
+| Checksum | [motemasens-mobile-v11.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v11/motemasens-mobile-v11.apk.sha256) |
 
 On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
 
 If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
 
-## Device Software v8
+## Device Software v9
 
-The latest device software is **MotemaSens v8.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This field-validation release adds format-v4 recording-session boundaries, explicit sample-gap reporting, independent stream timestamps/counters, and improved ECG, microphone and IMU recording diagnostics.
+The latest device software is **MotemaSens v9.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This release fixes SD file-list refresh timeouts by returning short directory-list pages rather than one large response. Mobile v11 automatically loads and combines those pages.
 
 The release has passed software build, simulation and conversion checks. Physical device validation is still required, so please follow the test instructions provided for this release and share the original SD recording plus the post-recording status when requested.
 

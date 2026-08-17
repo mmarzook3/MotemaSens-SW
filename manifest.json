@@ -2,8 +2,46 @@
   "schema": 1,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v8",
+  "latest": "v9",
   "versions": [
+    {
+      "version": "v9",
+      "name": "MotemaSens Firmware v9",
+      "firmware_version": "v9.0.0",
+      "source_commit": "ce11b1e",
+      "release_date": "2026-08-17",
+      "notes": "Fixes SD file-browser timeouts with bounded paged directory responses. Physical device validation is pending.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v9/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v9/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v9/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v9/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v9/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v9/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v9/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v9/firmware.bin",
+          "address": "0x10000",
+          "sha256": "50527eee091e1ef10b77c2f3cacfebd866ddf60bb6ef739d1fa570e6dacc892d",
+          "size": 1698304
+        }
+      }
+    },
     {
       "version": "v8",
       "name": "MotemaSens Firmware v8",
@@ -311,8 +349,32 @@
   ],
   "app": {
     "schema": 1,
-    "latest": "1.0.35+35",
+    "latest": "1.0.36+36",
     "releases": [
+      {
+        "version": "1.0.36+36",
+        "publicVersion": "v11",
+        "name": "MotemaSens Mobile v11",
+        "releaseDate": "2026-08-17",
+        "notes": "Fixes SD file-list refresh timeouts through paged local WiFi browsing and a longer per-page response timeout. Paired with MotemaSens firmware v9.",
+        "sourceCommit": "ce11b1e",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v11/motemasens-mobile-v11.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v11/motemasens-mobile-v11.apk",
+              "sha256": "0704b6dde19a11dd5bd361dd1f2371e9affbbfdb2d8c333367d1bc4d9c88c866",
+              "size": 52451267
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "1.0.35+35",
         "publicVersion": "v10",
