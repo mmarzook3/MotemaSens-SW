@@ -2,7 +2,7 @@
 
 This tool connects to the ESP32 USB serial port, controls the firmware USB
 live logger, saves CSV rows, shows a small live status view, and also exposes
-the SD BIN to CSV converter in the same user app.
+the SD BIN to CSV converter in the same desktop app.
 """
 
 from __future__ import annotations
@@ -35,6 +35,9 @@ TOOL_DIR = Path(__file__).resolve().parent
 BIN2CSV_DIR = TOOL_DIR.parent / "bin2csv"
 if str(BIN2CSV_DIR) not in sys.path:
     sys.path.insert(0, str(BIN2CSV_DIR))
+TOOLS_DIR = TOOL_DIR.parents[1]
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
 
 try:
     from binary_log import convert_file, default_destination
@@ -45,10 +48,11 @@ except Exception as exc:  # pragma: no cover - shown in GUI at runtime.
 else:
     BIN2CSV_IMPORT_ERROR = None
 
+from motemasens_tool_versions import APP_VERSION
 
-APP_TITLE = "MotemaSens USB Logger"
-DEFAULT_BAUD = "115200"
-BAUD_OPTIONS = ("115200", "921600", "460800", "230400")
+APP_TITLE = f"MotemaSens USB Logger v{APP_VERSION}"
+DEFAULT_BAUD = "921600"
+BAUD_OPTIONS = ("921600", "460800", "230400", "115200")
 CSV_HEADER_PREFIX = "LOG_HEADER,"
 CSV_ROW_PREFIX = "LOG,"
 BEAT_PREFIX = "BEAT,"

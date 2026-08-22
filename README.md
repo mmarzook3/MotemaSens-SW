@@ -1,427 +1,84 @@
-# MotemaSens
+# MotemaSens v12
 
-MotemaSens is a portable monitoring device and mobile app for recording ECG, microphone heart-sound, and motion data. This repository contains the released app, device software files, and PC tools needed to update the device and work with recorded logs.
+MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
-## What You Can Do
+## Downloads
 
-- View the device status on the round screen.
-- Control the device from the Android app.
-- Record ECG, MIC, and IMU/motion data to the SD card.
-- Download or convert recorded logs.
-- Capture a live USB log directly to a PC.
-- Update the Android app and device software.
+- [Android app v12](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v12/motemasens-mobile-v12.apk)
+- [Device firmware v12](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v12/firmware.bin)
+- [Complete v12 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v12/MotemaSens-v12.zip)
 
-## Quick Start
+Update the Android app first, then update device firmware from the app.
 
-1. Charge or power the MotemaSens device.
-2. Power on the device and wait for the round display to finish startup.
-3. Install the Android app from the latest APK below.
-4. Connect the phone to the same WiFi network as the device, or use BLE mode.
-5. Use the app to start and stop logging.
-6. Use the PC tools in `motemasens_tools` if you need USB logging or SD log conversion.
+## Validation status
 
-## ECG Algorithm Reference
+This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
 
-The public ECG acquisition algorithm, binary record layout, recording review, and standard-library validation tool are available in [Algorithms/ECG](Algorithms/ECG/). This reference is provided for engineering review and does not include the private firmware source code.
+- MATLAB runtime execution was not performed because MATLAB is not installed in the release environment; the static MATLAB cross-reader contract passed.
+- Isolated battery-power ECG morphology and signal-quality validation was not performed because the connected device has no battery or electrodes.
 
-## Android App Download
+# MotemaSens v12 user guide
 
-Current Android app release:
+MotemaSens records ECG, heart-sound microphone and motion data. The Android app
+controls recording, displays status, manages SD files and updates the device.
 
-| Item | Value |
-| --- | --- |
-| App public version | `v11` |
-| App version | `1.0.36+36` |
-| Download APK | [motemasens-mobile-v11.apk](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v11/motemasens-mobile-v11.apk) |
-| Checksum | [motemasens-mobile-v11.apk.sha256](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v11/motemasens-mobile-v11.apk.sha256) |
+## Connection modes
 
-On Android, download the APK, open it, and allow install from browser or file manager if Android asks.
+- **BLE**: device discovery, WiFi setup, status and basic control.
+- **Local**: full control when phone and device use the same WiFi network.
+- **Remote**: account-based control when the device is online.
 
-If Android says the app cannot be installed as an update, uninstall the older MotemaSens app once and then install the latest APK again. This can happen if the older app was installed from a different test build.
+The device display shows the complete local IP address. Enter it in Local mode
+exactly as shown. A connected WiFi indicator does not mean the phone is on the
+same network; confirm the phone WiFi name if Local mode cannot connect.
 
-## Device Software v9
+## Recording to SD
 
-The latest device software is **MotemaSens v9.0.0**. Update it from the MotemaSens app when the device is connected to WiFi. This release fixes SD file-list refresh timeouts by returning short directory-list pages rather than one large response. Mobile v11 automatically loads and combines those pages.
+1. Confirm the SD status is ready.
+2. Open **Storage** in the app.
+3. Select ECG, MIC, IMU, or all signals.
+4. Start **Write to SD card**.
+5. Wait for the app and device to show recording.
+6. Stop the recording and wait for verification to finish.
 
-The release has passed software build, simulation and conversion checks. Physical device validation is still required, so please follow the test instructions provided for this release and share the original SD recording plus the post-recording status when requested.
+SD browsing and software updates are intentionally locked while recording.
+After stopping, refresh the file list to download, rename or delete a recording.
 
-Logs made with v8 use SD log format v4. Use the updated [BIN to CSV converter](motemasens_tools/bin2csv/) or [MATLAB log reader](motemasens_tools/matlab_log_viewer/) included in this repository.
+## Recording result
 
-## Device Display Guide
+- **COMPLETE**: structure, checksum and stream accounting passed.
+- **MINOR LOSS**: usable for some review, but contains a reported warning or
+  small gap. Review the diagnostics before analysis.
+- **FAILED**: do not use for timing or waveform interpretation.
+- **UNVERIFIED**: the recording did not finish with enough evidence to prove it
+  complete.
 
-The round display is designed to show only the most important information.
+Missing samples remain missing. The tools do not invent, repeat or interpolate
+sensor values to hide a gap.
 
-### Top Area
+## Working with files
 
-| Display item | Meaning |
-| --- | --- |
-| Battery percentage | Estimated battery level when a battery is connected. |
-| Battery icon | Battery state. If no battery is detected, the display shows a no-battery status instead of a fake percentage. |
-| Green dot | WiFi status. Solid green means connected, blinking means trying to connect, red means failed. |
-| Blue dot or X | BLE status. Blue dot means connected, blue X means not connected. |
-| Yellow dot or X | VPS/remote status. Yellow dot means remote service connected, yellow X means not connected. |
+Binary `.bin` files are the original high-speed recordings. Keep the original
+file and convert a copy to CSV when needed. The v12 package contains:
 
-### Device Info Line
+- BIN-to-CSV graphical and command-line tools.
+- MATLAB log reader.
+- USB logger for direct PC captures.
+- Software updater for USB recovery and released firmware installation.
 
-The small text line shows:
+## Software updates
 
-```text
-FW: software version | SL: device serial | IP: device IP address
-```
+Install the v12 Android app first. In the app, open **Software Update**, select
+MotemaSens v12, and keep the device powered and connected until it restarts and
+reports firmware `v12.0.0`. A successful upload is not final confirmation; the
+version shown after reboot is the confirmation.
 
-Use the IP address when connecting in Local mode from the app.
+## Safe use
 
-### Waveform Area
+MotemaSens v12 is an engineering and research prototype. A recording-quality
+result describes file integrity and detected signal conditions; it is not a
+medical diagnosis. Follow the approved study and electrode-placement procedure.
 
-The main display area shows the live MIC and ECG waveforms when the device is idle. When logging starts, the waveform display may stop or simplify so the device can focus on recording stable data.
+## Report an issue
 
-### Sensor Status Row
-
-The display shows a compact health row:
-
-```text
-MIC | ECG | IMU | SD
-```
-
-Common status values:
-
-| Status | Meaning |
-| --- | --- |
-| `ON` | Active and working. |
-| `LOG` | Logging is active. |
-| `ERR` | The device detected a problem with that signal or storage. |
-| `SAT` | The signal is saturated or clipped. |
-| `LOFF` | ECG lead contact may be off or poor. |
-
-If all key checks pass, the screen shows:
-
-```text
-All Systems Normal
-```
-
-If there is an error, check the app status screen or reconnect/restart the device.
-
-### SD Card Area
-
-The bottom of the display shows whether the SD card is available and the free/total space when the card is detected.
-
-## Using the Mobile App
-
-Open the MotemaSens app. The main options are:
-
-| App option | Use it for |
-| --- | --- |
-| Local | Control the device over the same WiFi network. |
-| Remote | Control a device through the MotemaSens remote service. |
-| BLE | Connect directly by Bluetooth Low Energy. Useful for setup and fallback control. |
-| Debug | Advanced setup tools protected by a code. Use only when instructed. |
-
-### Local Mode
-
-Use Local mode when the phone and device are on the same WiFi network.
-
-1. Read the device IP address from the round display.
-2. Open the app.
-3. Tap `Local`.
-4. Enter the device address, for example:
-
-```text
-http://192.168.5.29
-```
-
-5. Tap connect or refresh.
-6. Use the app controls to view status, start logging, stop logging, or open the software update screen.
-
-### BLE Mode
-
-Use BLE when WiFi is not ready or when setting up the device.
-
-1. Turn on Bluetooth on the phone.
-2. Open the app and tap `BLE`.
-3. Scan for MotemaSens devices.
-4. Select the device by name and serial number.
-5. Use BLE controls to check status, start/stop logging, restart the device, or configure WiFi.
-
-### Remote Mode
-
-Use Remote mode when the device and phone are not on the same local network.
-
-1. Make sure the device has internet access.
-2. Open the app and tap `Remote`.
-3. Use the server:
-
-```text
-https://ms.nwatt.uk
-```
-
-4. Sign in with the account details provided for the device.
-5. Select the device by serial number.
-6. Use the remote controls to view device status or start/stop logging.
-
-### Debug Mode
-
-Debug mode is for setup and support. It can be used to:
-
-- Change the device WiFi SSID and password.
-- Force all LEDs off.
-- Run LED tests.
-- Restart the device.
-
-Use it only when you know what you are changing.
-
-## Logging to SD Card
-
-SD logging is the normal way to record longer sessions.
-
-1. Insert the SD card before starting the session.
-2. Open the app and connect using Local or BLE.
-3. Find the `Write to SD card` section.
-4. Select one or more channels:
-   - ECG
-   - MIC
-   - IMU
-   - All
-5. Tap `All` or select the required channels.
-6. Confirm the display shows logging status.
-7. Keep the device stable during the session.
-8. Tap `Stop` before removing power or removing the SD card.
-
-SD logs are saved as binary files for speed. Convert them to CSV before viewing them in Excel or plotting tools.
-
-## Downloading Logs from the App
-
-When connected in Local mode:
-
-1. Open the `Storage` tab.
-2. Tap refresh.
-3. Select the log file.
-4. Download it to the phone, or copy the file link.
-5. Convert `.bin` files to CSV if needed.
-
-Each file is shown with its readable recording name, original filename, size, and a separate row of actions. Use the pencil button to rename a recording. Use the bin button to delete a recording, then confirm the filename in the dialog. The app reports whether the device completed or rejected the action.
-
-Stop active logging before renaming or deleting its current file.
-
-## USB Logging on a PC
-
-USB logging is useful for live testing, quick checks, and support captures.
-
-### Open the USB Logger
-
-Download this repository as a ZIP, extract it, then run:
-
-```text
-motemasens_tools\usb_logger\run_motemasens_usb_logger.bat
-```
-
-The tool opens a GUI for USB logging and status viewing.
-
-### USB Logging Steps
-
-1. Connect MotemaSens to the PC using a USB data cable.
-2. Open the USB Logger.
-3. Select the MotemaSens COM port. It usually appears like:
-
-```text
-COM7 - USB-Enhanced-SERIAL CH343
-```
-
-4. Use baud `115200` for the current release.
-5. Choose an output folder and CSV filename.
-6. Click `Connect`.
-7. Click `Start log`.
-8. Watch the row count and live preview.
-9. Click `Stop log`.
-
-The tool saves:
-
-```text
-motemasens_usb_YYYYMMDD_HHMMSS.csv
-motemasens_usb_YYYYMMDD_HHMMSS.serial.txt
-```
-
-The CSV file contains the live log rows. The `.serial.txt` file contains the full USB text output and is useful for support.
-
-## Converting SD Binary Logs to CSV
-
-You can convert SD `.bin` files using either:
-
-```text
-motemasens_tools\usb_logger\run_motemasens_usb_logger.bat
-```
-
-or the standalone converter:
-
-```text
-motemasens_tools\bin2csv\run_bin2csv_gui.bat
-```
-
-Steps:
-
-1. Open the converter.
-2. Browse and select the `.bin` file.
-3. Choose the output folder.
-4. Choose the CSV filename.
-5. Click `Convert`.
-6. Open the CSV in Excel, LibreOffice, Python, or the MotemaSens CSV viewer.
-
-## Updating the Device Software
-
-Use the updater when a new MotemaSens device release is provided.
-
-1. Download this repository as a ZIP from GitHub.
-2. Extract the ZIP.
-3. Connect the device to the PC using USB.
-4. Run:
-
-```text
-motemasens_tools\sw_updater\run_motemasens_sw_updater.bat
-```
-
-5. Select the released version.
-6. Select the MotemaSens COM port.
-7. Click `Flash selected version`.
-8. Wait until flashing is complete and the device restarts.
-
-Do not unplug the device during flashing.
-
-## MotemaSens Tools
-
-The Windows tools are kept under `motemasens_tools`.
-
-| Tool | Run this file | Use it for |
-| --- | --- | --- |
-| Device Software Updater | `motemasens_tools\sw_updater\run_motemasens_sw_updater.bat` | Install a released MotemaSens device software version over USB. |
-| USB Logger | `motemasens_tools\usb_logger\run_motemasens_usb_logger.bat` | Start/stop USB logging, view live USB data, and save CSV logs. |
-| MATLAB Log Viewer | `motemasens_tools\matlab_log_viewer\plottingdata_clean_ecg.m` | Open `.bin` or `.csv` logs in MATLAB and review ECG quality. |
-| SD BIN to CSV Converter | `motemasens_tools\bin2csv\run_bin2csv_gui.bat` | Convert SD card `.bin` log files into CSV files. |
-
-Before using the software updater, close any serial monitor, USB logger, or other program using the MotemaSens COM port.
-
-## Current Device Release
-
-| Item | Value |
-| --- | --- |
-| Public version | `v5` |
-| Device software version | `v5.0.0` |
-| Release date | `2026-07-24` |
-
-## Troubleshooting
-
-| Problem | What to try |
-| --- | --- |
-| App cannot connect in Local mode | Make sure the phone and device are on the same WiFi. Check the IP on the display. |
-| BLE scan does not find the device | Turn Bluetooth off/on, allow nearby-device permission, then scan again. |
-| No SD card shown | Reinsert the card and restart the device. |
-| ECG status shows `LOFF` | Check electrode contact and cable connection. |
-| MIC signal is small | Hold the device closer and reduce clothing rub or background noise. |
-| USB Logger shows no rows | Check the COM port and baud rate. Use `115200` for current release. |
-| Flashing fails | Close any serial monitor or USB logger using the COM port, reconnect USB, and try again. |
-| Device does not start after update | Run the updater again. If needed, enable erase flash before update. |
-
-## Privacy
-
-MotemaSens logs may contain personal physiological and motion data. Store, share, and delete logs carefully.
-
-## Repository Contents
-
-| Folder/File | Purpose |
-| --- | --- |
-| `mobile_releases` | Released Android APK files. |
-| `releases` | Released device software files. |
-| `motemasens_tools\sw_updater` | Windows device software updater. |
-| `motemasens_tools\usb_logger` | USB logger and live capture tool. |
-| `motemasens_tools\matlab_log_viewer` | MATLAB log viewer for ECG, microphone, and movement logs. |
-| `motemasens_tools\bin2csv` | SD binary log to CSV converter. |
-| `manifest.json` | Release information used by the updater and app. |
-
-This public repository is only for released files, tools, and user documentation. It does not contain the Android app source code or device firmware source code.
-
-## Logging Issues and Incidents
-
-Use GitHub Issues in this repository to report problems, incidents, questions, or feature requests.
-
-Open the Issues page:
-
-[MotemaSens-SW Issues](https://github.com/mmarzook3/MotemaSens-SW/issues)
-
-Then click:
-
-```text
-New issue
-```
-
-### Good Issue Titles
-
-Use short, clear titles:
-
-```text
-[INCIDENT] USB logger cannot connect to COM port
-[BUG] Battery shows No Battery while battery is connected
-[SD] Log file is not visible in app Storage tab
-[APP] BLE scan does not find the device
-[REQUEST] Add export option for converted CSV
-```
-
-### What to Include
-
-Copy and paste this into the issue description:
-
-```text
-Device serial:
-Device software version:
-Mobile app version:
-PC tool version, if used:
-Connection mode: Local / BLE / Remote / USB
-Date and time:
-
-What happened:
-
-What did you expect to happen:
-
-Steps to reproduce:
-1.
-2.
-3.
-
-Files attached:
-- Screenshot:
-- CSV log:
-- Serial text log:
-- SD .bin file, if safe to share:
-
-Priority: Low / Medium / High / Blocking
-```
-
-### Labels to Use
-
-If you have permission to add labels, use the most relevant ones:
-
-```text
-incident
-bug
-app
-device
-usb-logging
-sd-logging
-ble
-wifi
-remote
-documentation
-question
-feature-request
-needs-test
-fixed
-```
-
-### Linking Fixes
-
-When a fix is made, link the issue number in the commit or pull request:
-
-```text
-Fix USB logger COM port detection
-
-Fixes #12
-```
-
-GitHub will then link the fix to issue `#12`, making it easier to track what changed and when it was resolved.
+Use the [GitHub issue tracker](https://github.com/mmarzook3/MotemaSens-SW/issues) and include the app version, device version, steps, and a screenshot where possible.

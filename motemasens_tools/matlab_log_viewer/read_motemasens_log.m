@@ -1,6 +1,7 @@
 function [T, info] = read_motemasens_log(fullFileName)
 %READ_MOTEMASENS_LOG Read MotemaSens CSV or binary SD recordings.
-% Supports binary formats v1 (64 bytes), v2 (80 bytes) and v3 (92 bytes).
+% Supports binary formats v1 (64 bytes), v2 (80 bytes), v3 (92 bytes) and
+% v4 typed independent ECG/MIC/IMU/GAP chunks.
 
     [~, ~, extension] = fileparts(fullFileName);
     if ~strcmpi(extension, '.bin')
@@ -29,6 +30,15 @@ function [T, info] = read_motemasens_log(fullFileName)
     fread_required(fid, 3, 'uint8');
     firmwareVersion = fread_required(fid, 40, '*char')'; %#ok<NASGU>
 
+    fileInfo = dir(fullFileName);
+    if formatVersion == 4
+        if recordSize ~= 0
+            error('Unsupported MotemaSens v4 header: recordSize must be zero.');
+        end
+        [T, info] = read_motemasens_v4(fid, headerSize, double(fileInfo.bytes));
+        return;
+    end
+
     expectedSizes = [64, 80, 92];
     if formatVersion < 1 || formatVersion > numel(expectedSizes) || ...
             recordSize ~= expectedSizes(formatVersion)
@@ -36,7 +46,6 @@ function [T, info] = read_motemasens_log(fullFileName)
             formatVersion, recordSize);
     end
 
-    fileInfo = dir(fullFileName);
     payloadBytes = double(fileInfo.bytes) - headerSize;
     dataBytes = payloadBytes;
     info = struct('formatVersion', formatVersion, 'recordSize', recordSize, ...
@@ -98,8 +107,9 @@ function [T, info] = read_motemasens_log(fullFileName)
     fseek(fid, headerSize, 'bof');
     ms = zeros(recordCount, 1); ecg_us = zeros(recordCount, 1);
     ecg_seq8 = zeros(recordCount, 1); ecg_seq = zeros(recordCount, 1);
-    ecg_status = zeros(recordCount, 1); lead_i_raw = zeros(recordCount, 1);
-    lead_ii_raw = zeros(recordCount, 1); lead_iii_raw = zeros(recordCount, 1);
+    ecg_status = zeros(recordCount, 1); ecg_ch1_raw = zeros(recordCount, 1);
+    ecg_ch2_raw = zeros(recordCount, 1); ecg_ch3_raw = zeros(recordCount, 1);
+    ecg_ch4_raw = nan(recordCount, 1);
     lead_off_p = zeros(recordCount, 1); lead_off_n = zeros(recordCount, 1);
     sat_mask = zeros(recordCount, 1); diag_flags = zeros(recordCount, 1);
     mic_ms = zeros(recordCount, 1); mic_seq8 = zeros(recordCount, 1);
@@ -122,9 +132,9 @@ function [T, info] = read_motemasens_log(fullFileName)
         ecg_us(row) = double(fread_required(fid, 1, 'uint32'));
         ecg_seq(row) = double(fread_required(fid, 1, 'uint32'));
         ecg_status(row) = double(fread_required(fid, 1, 'uint32'));
-        lead_i_raw(row) = double(fread_required(fid, 1, 'int32'));
-        lead_ii_raw(row) = double(fread_required(fid, 1, 'int32'));
-        lead_iii_raw(row) = double(fread_required(fid, 1, 'int32'));
+        ecg_ch1_raw(row) = double(fread_required(fid, 1, 'int32'));
+        ecg_ch2_raw(row) = double(fread_required(fid, 1, 'int32'));
+        ecg_ch3_raw(row) = double(fread_required(fid, 1, 'int32'));
         mic_ms(row) = double(fread_required(fid, 1, 'uint32'));
         acc_ms(row) = double(fread_required(fid, 1, 'uint32'));
         mic_trace(row) = double(fread_required(fid, 1, 'int16')) / 32767.0;
@@ -163,9 +173,19 @@ function [T, info] = read_motemasens_log(fullFileName)
         end
     end
 
+    ecg_valid = bitand(uint32(ecg_status), uint32(hex2dec('F00000'))) == ...
+        uint32(hex2dec('C00000')) & bitand(uint16(diag_flags), uint16(hex2dec('0040'))) == 0;
+    ecg_ch1_raw(~ecg_valid) = NaN;
+    ecg_ch2_raw(~ecg_valid) = NaN;
+    ecg_ch3_raw(~ecg_valid) = NaN;
+    lead_i = ecg_ch1_raw;
+    lead_ii = ecg_ch2_raw;
+    lead_iii_derived = ecg_ch2_raw - ecg_ch1_raw;
+
     LOG_HEADER = repmat({'LOG'}, recordCount, 1);
     T = table(LOG_HEADER, ms, ecg_us, ecg_seq8, ecg_seq, ecg_status, ...
-        lead_i_raw, lead_ii_raw, lead_iii_raw, lead_off_p, lead_off_n, sat_mask, ...
+        ecg_valid, ecg_ch1_raw, ecg_ch2_raw, ecg_ch3_raw, ecg_ch4_raw, ...
+        lead_i, lead_ii, lead_iii_derived, lead_off_p, lead_off_n, sat_mask, ...
         diag_flags, mic_ms, mic_seq8, mic_trace, mic_level, mic_first_us, ...
         mic_sample_seq, mic_raw_0, mic_raw_1, mic_raw_2, mic_raw_3, acc_ms, ...
         acc_seq8, acc_x_g, acc_y_g, acc_z_g, raw_x, raw_y, raw_z, acc_diag_flags, ...

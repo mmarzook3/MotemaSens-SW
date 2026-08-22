@@ -1,1 +1,0 @@
-idf_component_register(SRCS "ads129x_spi.c" "ads129x_registers.c" "ads129x_frame.c" "ecg_diagnostics.c" "ecg_filter.c" "ecg_pipeline.c" "ecg_task.c" INCLUDE_DIRS "include" REQUIRES driver freertos common board storage system)

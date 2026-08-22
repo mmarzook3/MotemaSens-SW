@@ -1,0 +1,27 @@
+{
+  "release": "v12",
+  "sourceCommit": "0cf002cf394d02774f4678937f3a237ee0c9f4a7",
+  "physicalValidation": "passed_with_limitations",
+  "matlabRuntimeValidation": "deferred",
+  "publishWithLimitations": true,
+  "approvedBy": "Mohamed Marzook",
+  "evidencePath": "docs/firmware/test_results/2026-08-22-v12-physical and docs/firmware/test_results/2026-08-22-live-phone-preview",
+  "exceptionReason": "The release owner requested publication for formal field validation. Automated, package, connected-phone, emulator, ESP32, SD, BLE, OTA, USB and live-preview checks passed; unavailable environmental checks remain explicitly deferred.",
+  "knownLimitations": [
+    "MATLAB runtime execution was not performed because MATLAB is not installed in the release environment; the static MATLAB cross-reader contract passed.",
+    "Isolated battery-power ECG morphology and signal-quality validation was not performed because the connected device has no battery or electrodes."
+  ],
+  "exactPackageChecks": {
+    "androidPhysicalPhone": "12.0.0+43 installed",
+    "androidEmulator": "12.0.0+43 installed",
+    "firmwareOta": "v12.0.0 installed and confirmed after reboot",
+    "firmwareSha256": "b9423c932a1f55e648b412f26deeb44b0361a52171691c62bf40e6772e245aa2",
+    "apkSha256": "7b54966282f94bc49fc0f9223464be9f7e00dd4c5e5d275391d9afb6d9895ecf",
+    "otaEvidence": "C:/codex/MotemaSens-v12-dist/exact-package-ota.json"
+  },
+  "approved": true,
+  "approvalStatus": "approved_with_limitations",
+  "approvedUtc": "2026-08-22T19:13:12.565371+00:00",
+  "packageVerification": "passed",
+  "verifiedUtc": "2026-08-22T19:13:17.998421+00:00"
+}
