@@ -1,0 +1,5 @@
+"""Version numbers for MotemaSens desktop tools."""
+
+APP_VERSION = "13.0.0"
+FACTORY_FLASHER_VERSION = APP_VERSION
+SW_UPDATER_VERSION = APP_VERSION

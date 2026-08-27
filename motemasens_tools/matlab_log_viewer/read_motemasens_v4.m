@@ -1,7 +1,22 @@
-function [T, info] = read_motemasens_v4(fid, headerSize, fileBytes)
+function [T, info] = read_motemasens_v4(fid, headerSize, fileBytes, rateMetadata)
 %READ_MOTEMASENS_V4 Decode and verify independent v4 acquisition streams.
 % Invalid acquisition values and missing samples remain NaN. No interpolation,
 % repeated values, display filtering or timeline compression is performed.
+
+    rates = [500 2000 125];
+    periods = [2000 500 8000];
+    if nargin >= 4 && numel(rateMetadata) >= 2 && rateMetadata(1) == 1
+        code = double(rateMetadata(2));
+        ecgIndex = bitand(code, 3) + 1;
+        micIndex = min(bitand(bitshift(code, -2), 3), 2) + 1;
+        imuIndex = bitand(bitshift(code, -4), 3) + 1;
+        ecgRates = [250 500 1000 2000];
+        micRates = [500 1000 2000];
+        imuRates = [31 63 125 250];
+        imuPeriods = [32000 16000 8000 4000];
+        rates = [ecgRates(ecgIndex) micRates(micIndex) imuRates(imuIndex)];
+        periods = [1000000 / rates(1) 1000000 / rates(2) imuPeriods(imuIndex)];
+    end
 
     trailerSize = 152;
     dataEnd = fileBytes;
@@ -55,7 +70,7 @@ function [T, info] = read_motemasens_v4(fid, headerSize, fileBytes)
             samples = typecast(uint8(payload(5:20)), 'int16');
             valid = bitand(flags, 1) ~= 0;
             for index = 0:count-1
-                row = new_row('MIC', sessionUs + index * 500, ...
+                row = new_row('MIC', sessionUs + index * periods(2), ...
                     mod(sequence + index, 2^32), valid);
                 row.mic_block_sample_count = count;
                 row.mic_block_sample_index = index;
@@ -87,7 +102,6 @@ function [T, info] = read_motemasens_v4(fid, headerSize, fileBytes)
             rows(end+1,1) = row; %#ok<AGROW>
             if streamId >= 1 && streamId <= 3
                 gaps(streamId) = gaps(streamId) + missing;
-                periods = [2000 500 8000];
                 for index = 0:missing-1
                     row = gap_row([streamName '_MISSING'], streamName, reason, ...
                         missing, expected, next, sessionUs + index * periods(streamId), ...
@@ -126,7 +140,8 @@ function [T, info] = read_motemasens_v4(fid, headerSize, fileBytes)
         'trailerPresent', trailerPresent, 'trailingBytes', trailingBytes, ...
         'crcValid', crcValid, 'parsedChunks', parsedChunks, 'trailer', trailer, ...
         'gapSamples', gaps, 'sessionDiagnostics', diagnostics, 'quality', quality, ...
-        'timingReady', timingReady, 'status', status);
+        'timingReady', timingReady, 'status', status, ...
+        'ecgRateHz', rates(1), 'micRateHz', rates(2), 'imuRateHz', rates(3));
 end
 
 function trailer = read_trailer(fid)

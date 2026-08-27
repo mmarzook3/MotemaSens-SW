@@ -2,10 +2,80 @@
   "schema": 2,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v12",
+  "latest": "v13",
   "unified": {
-    "latest": "v12",
+    "latest": "v13",
     "releases": [
+      {
+        "release": "v13",
+        "semver": "13.0.0",
+        "status": "approved_with_limitations",
+        "releaseDate": "2026-08-27",
+        "sourceCommit": "459f026d086de618bca56f4dee5e3625fcba5a7e",
+        "package": {
+          "path": "unified_releases/v13/MotemaSens-v13.zip",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v13/MotemaSens-v13.zip"
+        },
+        "firmware": {
+          "version": "13.0.0",
+          "files": {
+            "bootloader": {
+              "path": "releases/v13/bootloader.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/bootloader.bin",
+              "address": "0x0",
+              "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+              "size": 15104
+            },
+            "partitions": {
+              "path": "releases/v13/partitions.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/partitions.bin",
+              "address": "0x8000",
+              "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+              "size": 3072
+            },
+            "boot_app0": {
+              "path": "releases/v13/boot_app0.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/boot_app0.bin",
+              "address": "0xe000",
+              "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+              "size": 8192
+            },
+            "firmware": {
+              "path": "releases/v13/firmware.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/firmware.bin",
+              "address": "0x10000",
+              "sha256": "283465791e94ac235654b3d561a28f0554fa15ef577e03673044164fed7a89a6",
+              "size": 1762128
+            }
+          }
+        },
+        "app": {
+          "version": "13.0.0",
+          "androidBuild": 72,
+          "package": "uk.nwatt.motemasens",
+          "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+          "apk": {
+            "path": "mobile_releases/v13/motemasens-mobile-v13.apk",
+            "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v13/motemasens-mobile-v13.apk",
+            "sha256": "f35848ebfb7d94f19292d7ca1aa0ef3e6e993c2675c1d53ee9a4d23f5fdd5d32",
+            "size": 55228730
+          }
+        },
+        "tools": {
+          "version": "13.0.0",
+          "packagePath": "unified_releases/v13/MotemaSens-v13/tools"
+        },
+        "compatibility": {
+          "binaryLogFormat": 4,
+          "manifestSchema": 2,
+          "minimumFirmware": "13.0.0",
+          "minimumApp": "13.0.0",
+          "minimumTools": "13.0.0"
+        },
+        "knownLimitations": [
+          "MATLAB runtime execution was not performed because MATLAB is not installed in the release environment; the static MATLAB cross-reader contract passed."
+        ]
+      },
       {
         "release": "v12",
         "semver": "12.0.0",
@@ -80,6 +150,44 @@
     ]
   },
   "versions": [
+    {
+      "version": "v13",
+      "name": "MotemaSens Firmware v13",
+      "firmware_version": "v13.0.0",
+      "source_commit": "459f026d086de618bca56f4dee5e3625fcba5a7e",
+      "release_date": "2026-08-27",
+      "notes": "Unified MotemaSens release published with documented validation limitations.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v13/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v13/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v13/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v13/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/firmware.bin",
+          "address": "0x10000",
+          "sha256": "283465791e94ac235654b3d561a28f0554fa15ef577e03673044164fed7a89a6",
+          "size": 1762128
+        }
+      }
+    },
     {
       "version": "v12",
       "name": "MotemaSens Firmware v12",
@@ -463,8 +571,33 @@
   ],
   "app": {
     "schema": 2,
-    "latest": "12.0.0+43",
+    "latest": "13.0.0+72",
     "releases": [
+      {
+        "version": "13.0.0+72",
+        "publicVersion": "v13",
+        "name": "MotemaSens Mobile v13",
+        "releaseDate": "2026-08-27",
+        "notes": "Unified MotemaSens release published with documented validation limitations.",
+        "sourceCommit": "459f026d086de618bca56f4dee5e3625fcba5a7e",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v13/motemasens-mobile-v13.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v13/motemasens-mobile-v13.apk",
+              "sha256": "f35848ebfb7d94f19292d7ca1aa0ef3e6e993c2675c1d53ee9a4d23f5fdd5d32",
+              "size": 55228730
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "12.0.0+43",
         "publicVersion": "v12",

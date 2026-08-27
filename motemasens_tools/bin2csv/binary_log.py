@@ -109,7 +109,7 @@ TRAILER_STRUCT_V4 = struct.Struct("<8sHHIQII15Q")
 
 QUALITY_NAMES = {0: "unverified", 1: "complete", 2: "minor_loss", 3: "failed"}
 V4_STREAM_NAMES = {1: "ECG", 2: "MIC", 3: "IMU"}
-V4_STREAM_PERIOD_US = {1: 2000, 2: 500, 3: 8000}
+DEFAULT_STREAM_RATES_HZ = (500, 2000, 125)
 
 
 @dataclass(frozen=True)
@@ -120,6 +120,9 @@ class BinaryLogHeader:
     start_ms: int
     channel_mask: int
     firmware_version: str
+    ecg_rate_hz: int = DEFAULT_STREAM_RATES_HZ[0]
+    mic_rate_hz: int = DEFAULT_STREAM_RATES_HZ[1]
+    imu_rate_hz: int = DEFAULT_STREAM_RATES_HZ[2]
 
 
 @dataclass(frozen=True)
@@ -263,7 +266,7 @@ def read_header(handle: BinaryIO) -> BinaryLogHeader:
     if len(raw) != HEADER_STRUCT.size:
         raise ValueError("File is too small to be a MotemaSens binary log")
 
-    magic, header_size, record_size, format_version, start_ms, channel_mask, _, version = HEADER_STRUCT.unpack(raw)
+    magic, header_size, record_size, format_version, start_ms, channel_mask, rate_meta, version = HEADER_STRUCT.unpack(raw)
     if magic != MAGIC:
         raise ValueError("Not a MotemaSens binary log: missing MSLOGB1 magic")
     if header_size < HEADER_STRUCT.size:
@@ -282,6 +285,13 @@ def read_header(handle: BinaryIO) -> BinaryLogHeader:
     if header_size > HEADER_STRUCT.size:
         handle.seek(header_size)
 
+    ecg_rate_hz, mic_rate_hz, imu_rate_hz = DEFAULT_STREAM_RATES_HZ
+    if len(rate_meta) >= 2 and rate_meta[0] == 1:
+        code = rate_meta[1]
+        ecg_rate_hz = (250, 500, 1000, 2000)[code & 0x03]
+        mic_rate_hz = (500, 1000, 2000)[min((code >> 2) & 0x03, 2)]
+        imu_rate_hz = (31, 63, 125, 250)[(code >> 4) & 0x03]
+
     return BinaryLogHeader(
         header_size=header_size,
         record_size=record_size,
@@ -289,6 +299,9 @@ def read_header(handle: BinaryIO) -> BinaryLogHeader:
         start_ms=start_ms,
         channel_mask=channel_mask,
         firmware_version=version.split(b"\x00", 1)[0].decode("ascii", errors="replace"),
+        ecg_rate_hz=ecg_rate_hz,
+        mic_rate_hz=mic_rate_hz,
+        imu_rate_hz=imu_rate_hz,
     )
 
 
@@ -708,7 +721,8 @@ def _iter_v4_csv_rows(handle: BinaryIO, header: BinaryLogHeader, info: BinaryLog
             valid = bool(flags & 1)
             for sample_index, sample in enumerate(samples[:sample_count]):
                 yield _v4_row(
-                    "MIC", session_us + sample_index * 500, sequence + sample_index, int(valid),
+                    "MIC", session_us + sample_index * (1_000_000 // header.mic_rate_hz),
+                    sequence + sample_index, int(valid),
                     mic_block_sample_count=str(sample_count),
                     mic_block_sample_index=str(sample_index),
                     mic_sample=str(sample) if valid else "NaN",
@@ -734,7 +748,16 @@ def _iter_v4_csv_rows(handle: BinaryIO, header: BinaryLogHeader, info: BinaryLog
                 gap_missing_samples=str(missing), gap_expected_sequence=str(expected),
                 gap_next_sequence=str(next_sequence),
             )
-            period_us = V4_STREAM_PERIOD_US.get(stream)
+            stream_rates = {
+                1: header.ecg_rate_hz,
+                2: header.mic_rate_hz,
+                3: header.imu_rate_hz,
+            }
+            rate_hz = stream_rates.get(stream, 0)
+            if stream == 3 and rate_hz in (31, 63):
+                period_us = 32_000 if rate_hz == 31 else 16_000
+            else:
+                period_us = 1_000_000 // rate_hz if rate_hz else None
             if period_us is not None:
                 for missing_index in range(missing):
                     yield _v4_row(

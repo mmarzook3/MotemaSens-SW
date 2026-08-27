@@ -1,12 +1,12 @@
-# MotemaSens v12
+# MotemaSens v13
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
 ## Downloads
 
-- [Android app v12](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v12/motemasens-mobile-v12.apk)
-- [Device firmware v12](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v12/firmware.bin)
-- [Complete v12 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v12/MotemaSens-v12.zip)
+- [Android app v13](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v13/motemasens-mobile-v13.apk)
+- [Device firmware v13](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v13/firmware.bin)
+- [Complete v13 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v13/MotemaSens-v13.zip)
 
 Update the Android app first, then update device firmware from the app.
 
@@ -15,9 +15,8 @@ Update the Android app first, then update device firmware from the app.
 This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
 
 - MATLAB runtime execution was not performed because MATLAB is not installed in the release environment; the static MATLAB cross-reader contract passed.
-- Isolated battery-power ECG morphology and signal-quality validation was not performed because the connected device has no battery or electrodes.
 
-# MotemaSens v12 user guide
+# MotemaSens v13 user guide
 
 MotemaSens records ECG, heart-sound microphone and motion data. The Android app
 controls recording, displays status, manages SD files and updates the device.
@@ -59,7 +58,7 @@ sensor values to hide a gap.
 ## Working with files
 
 Binary `.bin` files are the original high-speed recordings. Keep the original
-file and convert a copy to CSV when needed. The v12 package contains:
+file and convert a copy to CSV when needed. The v13 package contains:
 
 - BIN-to-CSV graphical and command-line tools.
 - MATLAB log reader.
@@ -68,14 +67,14 @@ file and convert a copy to CSV when needed. The v12 package contains:
 
 ## Software updates
 
-Install the v12 Android app first. In the app, open **Software Update**, select
-MotemaSens v12, and keep the device powered and connected until it restarts and
-reports firmware `v12.0.0`. A successful upload is not final confirmation; the
+Install the v13 Android app first. In the app, open **Software Update**, select
+MotemaSens v13, and keep the device powered and connected until it restarts and
+reports firmware `v13.0.0`. A successful upload is not final confirmation; the
 version shown after reboot is the confirmation.
 
 ## Safe use
 
-MotemaSens v12 is an engineering and research prototype. A recording-quality
+MotemaSens v13 is an engineering and research prototype. A recording-quality
 result describes file integrity and detected signal conditions; it is not a
 medical diagnosis. Follow the approved study and electrode-placement procedure.
 

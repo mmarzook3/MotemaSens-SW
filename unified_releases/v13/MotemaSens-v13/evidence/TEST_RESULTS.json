@@ -1,0 +1,18 @@
+{
+  "release": "v13",
+  "sourceCommit": "459f026d086de618bca56f4dee5e3625fcba5a7e",
+  "approvedBy": "Marzook",
+  "evidencePath": "docs/firmware/test_results/2026-08-27-s3-reliability-v13",
+  "physicalValidation": "passed_with_limitations",
+  "matlabRuntimeValidation": "deferred",
+  "publishWithLimitations": true,
+  "exceptionReason": "The firmware, Android app, physical ESP32, Local OTA, maximum-rate SD recording, clean-stop verification and Python/Flutter readers were tested. MATLAB is not installed in the release environment, so only its static cross-reader contract could be validated.",
+  "knownLimitations": [
+    "MATLAB runtime execution was not performed because MATLAB is not installed in the release environment; the static MATLAB cross-reader contract passed."
+  ],
+  "approved": true,
+  "approvalStatus": "approved_with_limitations",
+  "approvedUtc": "2026-08-27T15:33:58.502569+00:00",
+  "packageVerification": "passed",
+  "verifiedUtc": "2026-08-27T15:34:03.872025+00:00"
+}

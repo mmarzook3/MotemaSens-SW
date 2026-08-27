@@ -27,7 +27,7 @@ function [T, info] = read_motemasens_log(fullFileName)
     formatVersion = double(fread_required(fid, 1, 'uint32'));
     startMs = double(fread_required(fid, 1, 'uint32')); %#ok<NASGU>
     channelMask = double(fread_required(fid, 1, 'uint8')); %#ok<NASGU>
-    fread_required(fid, 3, 'uint8');
+    rateMetadata = fread_required(fid, 3, 'uint8');
     firmwareVersion = fread_required(fid, 40, '*char')'; %#ok<NASGU>
 
     fileInfo = dir(fullFileName);
@@ -35,7 +35,7 @@ function [T, info] = read_motemasens_log(fullFileName)
         if recordSize ~= 0
             error('Unsupported MotemaSens v4 header: recordSize must be zero.');
         end
-        [T, info] = read_motemasens_v4(fid, headerSize, double(fileInfo.bytes));
+        [T, info] = read_motemasens_v4(fid, headerSize, double(fileInfo.bytes), rateMetadata);
         return;
     end
 
