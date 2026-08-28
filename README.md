@@ -1,25 +1,26 @@
-# MotemaSens v14.0.1
+# MotemaSens v14.0.3
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
 ## Downloads
 
-- [Android app v14.0.1](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14.0.1/motemasens-mobile-v14.0.1.apk)
-- [Device firmware v14.0.1](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14.0.1/firmware.bin)
-- [Complete v14.0.1 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v14.0.1/MotemaSens-v14.0.1.zip)
+- [Android app v14.0.3](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14.0.3/motemasens-mobile-v14.0.3.apk)
+- [Device firmware v14.0.3](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14.0.3/firmware.bin)
+- [Complete v14.0.3 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v14.0.3/MotemaSens-v14.0.3.zip)
 
 Update the Android app first, then update device firmware from the app.
 
 ## Validation status
 
-This version-only patch passed automated build, package, checksum and signing checks. Physical installation was intentionally deferred for the manual VPS update trial. It was published with the following recorded validation limitations:
+This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
 
-- Firmware v14.0.1 and app 14.0.1+97 were built and statically verified but were not installed on physical devices before publication by explicit request.
-- Runtime behavior is unchanged from the physically validated v14.0.0 release; only unified version metadata changed.
+- The exact v14.0.3 firmware and app package were not installed on physical devices before publication by explicit request.
+- The same Local OTA implementation was physically validated on SL02 immediately before the version metadata bump, but the final public Local IP test remains pending.
+- The same VPS-cached Remote OTA implementation was physically validated on both serialized devices immediately before this release line, but the final public Remote test remains pending.
 - MATLAB runtime validation remains deferred because MATLAB is unavailable on the release workstation.
 - USB mass storage still requires revised native-USB hardware; current devices use Local WiFi download.
 
-# MotemaSens v14.0.1 user guide
+# MotemaSens v14.0.3 user guide
 
 MotemaSens records ECG, heart-sound microphone and motion data. The Android app
 controls recording, displays status, manages SD files and updates the device.
@@ -61,7 +62,7 @@ sensor values to hide a gap.
 ## Working with files
 
 Binary `.bin` files are the original high-speed recordings. Keep the original
-file and convert a copy to CSV when needed. The v14.0.1 package contains:
+file and convert a copy to CSV when needed. The v14.0.3 package contains:
 
 - BIN-to-CSV graphical and command-line tools.
 - MATLAB log reader.
@@ -75,14 +76,14 @@ native USB data lines routed to the connector.
 
 ## Software updates
 
-Install the v14.0.1 Android app first. In the app, open **Software Update**, select
-MotemaSens v14.0.1, and keep the device powered and connected until it restarts and
-reports firmware `v14.0.1`. A successful upload is not final confirmation; the
+Install the v14.0.3 Android app first. In the app, open **Software Update**, select
+MotemaSens v14.0.3, and keep the device powered and connected until it restarts and
+reports firmware `v14.0.3`. A successful upload is not final confirmation; the
 version shown after reboot is the confirmation.
 
 ## Safe use
 
-MotemaSens v14.0.1 is an engineering and research prototype. A recording-quality
+MotemaSens v14.0.3 is an engineering and research prototype. A recording-quality
 result describes file integrity and detected signal conditions; it is not a
 medical diagnosis. Follow the approved study and electrode-placement procedure.
 
