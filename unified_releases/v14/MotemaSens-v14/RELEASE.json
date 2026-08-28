@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "product": "MotemaSens",
+  "release": "v14",
+  "semver": "14.0.0",
+  "status": "approved_with_limitations",
+  "sourceCommit": "d667ce0bd1cbe317c401c78a39d1a7532ebe5ca2",
+  "sourceDirty": false,
+  "androidBuild": 96,
+  "androidSignerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+  "binaryLogFormat": 4,
+  "manifestSchema": 2,
+  "artifacts": {
+    "bootloader": {
+      "path": "firmware/bootloader.bin",
+      "size": 15104,
+      "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363"
+    },
+    "partitions": {
+      "path": "firmware/partitions.bin",
+      "size": 3072,
+      "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7"
+    },
+    "boot_app0": {
+      "path": "firmware/boot_app0.bin",
+      "size": 8192,
+      "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0"
+    },
+    "firmware": {
+      "path": "firmware/firmware.bin",
+      "size": 1824384,
+      "sha256": "ba7006fa1b8dab644491872523f0fdee02fb0d93d9537753aeea06035cf81c81"
+    },
+    "apk": {
+      "path": "mobile/motemasens-mobile-v14.apk",
+      "size": 57953259,
+      "sha256": "295a7983210d02c3b2ddd64c2a81d3ebe67a70140cde4e20ef6e8a429b88d507"
+    }
+  }
+}

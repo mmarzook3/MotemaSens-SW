@@ -2,10 +2,83 @@
   "schema": 2,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v13",
+  "latest": "v14",
   "unified": {
-    "latest": "v13",
+    "latest": "v14",
     "releases": [
+      {
+        "release": "v14",
+        "semver": "14.0.0",
+        "status": "approved_with_limitations",
+        "releaseDate": "2026-08-28",
+        "sourceCommit": "d667ce0bd1cbe317c401c78a39d1a7532ebe5ca2",
+        "package": {
+          "path": "unified_releases/v14/MotemaSens-v14.zip",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v14/MotemaSens-v14.zip"
+        },
+        "firmware": {
+          "version": "14.0.0",
+          "files": {
+            "bootloader": {
+              "path": "releases/v14/bootloader.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/bootloader.bin",
+              "address": "0x0",
+              "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+              "size": 15104
+            },
+            "partitions": {
+              "path": "releases/v14/partitions.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/partitions.bin",
+              "address": "0x8000",
+              "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+              "size": 3072
+            },
+            "boot_app0": {
+              "path": "releases/v14/boot_app0.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/boot_app0.bin",
+              "address": "0xe000",
+              "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+              "size": 8192
+            },
+            "firmware": {
+              "path": "releases/v14/firmware.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/firmware.bin",
+              "address": "0x10000",
+              "sha256": "ba7006fa1b8dab644491872523f0fdee02fb0d93d9537753aeea06035cf81c81",
+              "size": 1824384
+            }
+          }
+        },
+        "app": {
+          "version": "14.0.0",
+          "androidBuild": 96,
+          "package": "uk.nwatt.motemasens",
+          "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+          "apk": {
+            "path": "mobile_releases/v14/motemasens-mobile-v14.apk",
+            "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14/motemasens-mobile-v14.apk",
+            "sha256": "295a7983210d02c3b2ddd64c2a81d3ebe67a70140cde4e20ef6e8a429b88d507",
+            "size": 57953259
+          }
+        },
+        "tools": {
+          "version": "14.0.0",
+          "packagePath": "unified_releases/v14/MotemaSens-v14/tools"
+        },
+        "compatibility": {
+          "binaryLogFormat": 4,
+          "manifestSchema": 2,
+          "minimumFirmware": "14.0.0",
+          "minimumApp": "14.0.0",
+          "minimumTools": "14.0.0"
+        },
+        "knownLimitations": [
+          "USB mass storage requires a revised PCB that routes the USB-C connector to the ESP32-S3 native USB pins; current CH343-only hardware uses resumable Local WiFi downloads.",
+          "The v14 bench recording used open ECG electrodes, so physiological ECG morphology and isolated-power versus mains interference were not revalidated in this pass.",
+          "MATLAB runtime was unavailable; packaged MATLAB contracts and fixtures passed, and Python conversion passed on the physical v14 recording.",
+          "The available camera was not pointed at the round LCD, so current-candidate LCD camera evidence was unavailable."
+        ]
+      },
       {
         "release": "v13",
         "semver": "13.0.0",
@@ -150,6 +223,44 @@
     ]
   },
   "versions": [
+    {
+      "version": "v14",
+      "name": "MotemaSens Firmware v14",
+      "firmware_version": "v14.0.0",
+      "source_commit": "d667ce0bd1cbe317c401c78a39d1a7532ebe5ca2",
+      "release_date": "2026-08-28",
+      "notes": "Unified MotemaSens release published with documented validation limitations.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v14/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v14/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v14/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v14/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/firmware.bin",
+          "address": "0x10000",
+          "sha256": "ba7006fa1b8dab644491872523f0fdee02fb0d93d9537753aeea06035cf81c81",
+          "size": 1824384
+        }
+      }
+    },
     {
       "version": "v13",
       "name": "MotemaSens Firmware v13",
@@ -571,8 +682,33 @@
   ],
   "app": {
     "schema": 2,
-    "latest": "13.0.0+72",
+    "latest": "14.0.0+96",
     "releases": [
+      {
+        "version": "14.0.0+96",
+        "publicVersion": "v14",
+        "name": "MotemaSens Mobile v14",
+        "releaseDate": "2026-08-28",
+        "notes": "Unified MotemaSens release published with documented validation limitations.",
+        "sourceCommit": "d667ce0bd1cbe317c401c78a39d1a7532ebe5ca2",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v14/motemasens-mobile-v14.apk",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14/motemasens-mobile-v14.apk",
+              "sha256": "295a7983210d02c3b2ddd64c2a81d3ebe67a70140cde4e20ef6e8a429b88d507",
+              "size": 57953259
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "13.0.0+72",
         "publicVersion": "v13",

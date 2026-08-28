@@ -415,7 +415,7 @@ class UsbLoggerApp(Tk):
             messagebox.showwarning("Not connected", "Connect to the ESP32 USB port first.")
             return
         self._open_capture_files()
-        self._send_serial("S")
+        self._send_serial("USB_START\n")
         self.capture_active = True
         self.capture_start_time = time.monotonic()
         self.rows_written = 0
@@ -433,7 +433,7 @@ class UsbLoggerApp(Tk):
     def stop_usb_log(self) -> None:
         if self.worker is not None:
             try:
-                self._send_serial("X")
+                self._send_serial("USB_STOP\n")
             except Exception as exc:  # noqa: BLE001
                 self._append_log(f"Stop command failed: {exc}")
         self.capture_var.set("Stopping")

@@ -105,3 +105,5 @@ DEVICE_SERIAL?
 - `S` starts the firmware USB live logger.
 - `X` stops the firmware USB live logger.
 - `DEVICE_SERIAL?` prints device serial, device ID, and BLE name.
+- Commands are newline terminated. The GUI sends `USB_START\n` and
+  `USB_STOP\n`; the firmware also accepts the short `S\n` and `X\n` forms.

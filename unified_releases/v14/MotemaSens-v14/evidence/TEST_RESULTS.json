@@ -1,0 +1,21 @@
+{
+  "release": "v14",
+  "sourceCommit": "d667ce0bd1cbe317c401c78a39d1a7532ebe5ca2",
+  "approvedBy": "Mohamed Marzook",
+  "evidencePath": "docs/firmware/test_results/2026-08-28-v14-release/README.md",
+  "physicalValidation": "passed_with_limitations",
+  "matlabRuntimeValidation": "deferred",
+  "publishWithLimitations": true,
+  "exceptionReason": "All requested v14 software, physical device, OTA, transport, SD, backend and Android checks passed. The release workstation and present bench arrangement cannot repeat MATLAB-runtime, isolated physiological ECG, mains-comparison or camera-facing LCD checks.",
+  "knownLimitations": [
+    "USB mass storage requires a revised PCB that routes the USB-C connector to the ESP32-S3 native USB pins; current CH343-only hardware uses resumable Local WiFi downloads.",
+    "The v14 bench recording used open ECG electrodes, so physiological ECG morphology and isolated-power versus mains interference were not revalidated in this pass.",
+    "MATLAB runtime was unavailable; packaged MATLAB contracts and fixtures passed, and Python conversion passed on the physical v14 recording.",
+    "The available camera was not pointed at the round LCD, so current-candidate LCD camera evidence was unavailable."
+  ],
+  "approved": true,
+  "approvalStatus": "approved_with_limitations",
+  "approvedUtc": "2026-08-28T15:03:22.438498+00:00",
+  "packageVerification": "passed",
+  "verifiedUtc": "2026-08-28T15:03:28.439787+00:00"
+}

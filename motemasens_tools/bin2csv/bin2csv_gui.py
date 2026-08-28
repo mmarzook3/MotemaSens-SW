@@ -6,6 +6,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 from binary_log import convert_file, default_destination, inspect_file
+from session_log import convert_session, read_session_index, validate_session
 
 TOOLS_DIR = Path(__file__).resolve().parents[2]
 if str(TOOLS_DIR) not in sys.path:
@@ -18,8 +19,8 @@ class Bin2CsvApp(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title(f"MotemaSens BIN to CSV v{APP_VERSION}")
-        self.geometry("640x320")
-        self.minsize(600, 300)
+        self.geometry("720x340")
+        self.minsize(660, 320)
 
         self.source_var = tk.StringVar()
         self.destination_dir_var = tk.StringVar()
@@ -34,9 +35,12 @@ class Bin2CsvApp(tk.Tk):
         root.pack(fill=tk.BOTH, expand=True)
         root.columnconfigure(1, weight=1)
 
-        ttk.Label(root, text="Input BIN file").grid(row=0, column=0, sticky="w", pady=(0, 8))
+        ttk.Label(root, text="BIN file or session folder").grid(row=0, column=0, sticky="w", pady=(0, 8))
         ttk.Entry(root, textvariable=self.source_var).grid(row=0, column=1, sticky="ew", padx=8, pady=(0, 8))
-        ttk.Button(root, text="Browse", command=self._browse_source).grid(row=0, column=2, pady=(0, 8))
+        source_buttons = ttk.Frame(root)
+        source_buttons.grid(row=0, column=2, pady=(0, 8))
+        ttk.Button(source_buttons, text="BIN file", command=self._browse_source).pack(side=tk.LEFT)
+        ttk.Button(source_buttons, text="Session", command=self._browse_session).pack(side=tk.LEFT, padx=(6, 0))
 
         ttk.Label(root, text="Destination folder").grid(row=1, column=0, sticky="w", pady=(0, 8))
         ttk.Entry(root, textvariable=self.destination_dir_var).grid(row=1, column=1, sticky="ew", padx=8, pady=(0, 8))
@@ -76,12 +80,31 @@ class Bin2CsvApp(tk.Tk):
         if folder:
             self.destination_dir_var.set(folder)
 
+    def _browse_session(self) -> None:
+        folder = filedialog.askdirectory(title="Select MotemaSens session folder")
+        if not folder:
+            return
+        source = Path(folder)
+        if not (source / "session.msidx").exists():
+            messagebox.showerror("Not a session", "The selected folder has no session.msidx file.")
+            return
+        index = read_session_index(source)
+        self.source_var.set(str(source))
+        self.destination_dir_var.set(str(source.parent))
+        self.output_name_var.set(f"{index.session_id}.csv")
+        self.status_var.set(f"Ready: {len(index.segments)} session segments found.")
+
     def _use_same_name(self) -> None:
         source_text = self.source_var.get().strip()
         if not source_text:
             messagebox.showinfo("MotemaSens", "Select the BIN file first.")
             return
-        self.output_name_var.set(default_destination(Path(source_text)).name)
+        source = Path(source_text)
+        self.output_name_var.set(
+            f"{read_session_index(source).session_id}.csv"
+            if source.is_dir()
+            else default_destination(source).name
+        )
 
     def _convert(self) -> None:
         try:
@@ -103,13 +126,22 @@ class Bin2CsvApp(tk.Tk):
                     self.status_var.set("Conversion cancelled.")
                     return
 
-            info = inspect_file(source)
-            rows = convert_file(source, destination, overwrite=True)
-            session_state = "Complete" if info.complete else "Incomplete"
-            self.status_var.set(f"{session_state}: {info.status}. Converted {rows} rows to {destination}")
+            if source.is_dir():
+                validation = validate_session(source)
+                if not validation.valid:
+                    raise ValueError(validation.status)
+                rows = convert_session(source, destination, overwrite=True)
+                session_state = "Complete"
+                status = validation.status
+            else:
+                info = inspect_file(source)
+                rows = convert_file(source, destination, overwrite=True)
+                session_state = "Complete" if info.complete else "Incomplete"
+                status = info.status
+            self.status_var.set(f"{session_state}: {status}. Converted {rows} rows to {destination}")
             messagebox.showinfo(
                 "MotemaSens",
-                f"{session_state} log: {info.status}\n\nConverted {rows} rows.\n\n{destination}",
+                f"{session_state} log: {status}\n\nConverted {rows} rows.\n\n{destination}",
             )
         except Exception as exc:  # noqa: BLE001 - show a clear user-facing message.
             self.status_var.set(f"Conversion failed: {exc}")
