@@ -1,0 +1,21 @@
+{
+  "release": "v14.0.1",
+  "sourceCommit": "0ed63ab74bb8abd4539fec19def4ac316979ff8c",
+  "approvedBy": "Mohamed Marzook",
+  "evidencePath": "release/public_docs/RELEASE_NOTES.md",
+  "physicalValidation": "passed_with_limitations",
+  "matlabRuntimeValidation": "deferred",
+  "publishWithLimitations": true,
+  "exceptionReason": "This is a version-only patch release requested specifically for a manual VPS software-update trial. The user instructed that no app or firmware artifact be installed on connected devices before publication.",
+  "knownLimitations": [
+    "Firmware v14.0.1 and app 14.0.1+97 were built and statically verified but were not installed on physical devices before publication by explicit request.",
+    "Runtime behavior is unchanged from the physically validated v14.0.0 release; only unified version metadata changed.",
+    "MATLAB runtime validation remains deferred because MATLAB is unavailable on the release workstation.",
+    "USB mass storage still requires revised native-USB hardware; current devices use Local WiFi download."
+  ],
+  "approved": true,
+  "approvalStatus": "approved_with_limitations",
+  "approvedUtc": "2026-08-28T15:29:06.970962+00:00",
+  "packageVerification": "passed",
+  "verifiedUtc": "2026-08-28T15:29:12.843705+00:00"
+}

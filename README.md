@@ -1,25 +1,25 @@
-# MotemaSens v14
+# MotemaSens v14.0.1
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
 ## Downloads
 
-- [Android app v14](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14/motemasens-mobile-v14.apk)
-- [Device firmware v14](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14/firmware.bin)
-- [Complete v14 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v14/MotemaSens-v14.zip)
+- [Android app v14.0.1](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v14.0.1/motemasens-mobile-v14.0.1.apk)
+- [Device firmware v14.0.1](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v14.0.1/firmware.bin)
+- [Complete v14.0.1 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v14.0.1/MotemaSens-v14.0.1.zip)
 
 Update the Android app first, then update device firmware from the app.
 
 ## Validation status
 
-This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
+This version-only patch passed automated build, package, checksum and signing checks. Physical installation was intentionally deferred for the manual VPS update trial. It was published with the following recorded validation limitations:
 
-- USB mass storage requires a revised PCB that routes the USB-C connector to the ESP32-S3 native USB pins; current CH343-only hardware uses resumable Local WiFi downloads.
-- The v14 bench recording used open ECG electrodes, so physiological ECG morphology and isolated-power versus mains interference were not revalidated in this pass.
-- MATLAB runtime was unavailable; packaged MATLAB contracts and fixtures passed, and Python conversion passed on the physical v14 recording.
-- The available camera was not pointed at the round LCD, so current-candidate LCD camera evidence was unavailable.
+- Firmware v14.0.1 and app 14.0.1+97 were built and statically verified but were not installed on physical devices before publication by explicit request.
+- Runtime behavior is unchanged from the physically validated v14.0.0 release; only unified version metadata changed.
+- MATLAB runtime validation remains deferred because MATLAB is unavailable on the release workstation.
+- USB mass storage still requires revised native-USB hardware; current devices use Local WiFi download.
 
-# MotemaSens v14 user guide
+# MotemaSens v14.0.1 user guide
 
 MotemaSens records ECG, heart-sound microphone and motion data. The Android app
 controls recording, displays status, manages SD files and updates the device.
@@ -61,7 +61,7 @@ sensor values to hide a gap.
 ## Working with files
 
 Binary `.bin` files are the original high-speed recordings. Keep the original
-file and convert a copy to CSV when needed. The v14 package contains:
+file and convert a copy to CSV when needed. The v14.0.1 package contains:
 
 - BIN-to-CSV graphical and command-line tools.
 - MATLAB log reader.
@@ -75,14 +75,14 @@ native USB data lines routed to the connector.
 
 ## Software updates
 
-Install the v14 Android app first. In the app, open **Software Update**, select
-MotemaSens v14, and keep the device powered and connected until it restarts and
-reports firmware `v14.0.0`. A successful upload is not final confirmation; the
+Install the v14.0.1 Android app first. In the app, open **Software Update**, select
+MotemaSens v14.0.1, and keep the device powered and connected until it restarts and
+reports firmware `v14.0.1`. A successful upload is not final confirmation; the
 version shown after reboot is the confirmation.
 
 ## Safe use
 
-MotemaSens v14 is an engineering and research prototype. A recording-quality
+MotemaSens v14.0.1 is an engineering and research prototype. A recording-quality
 result describes file integrity and detected signal conditions; it is not a
 medical diagnosis. Follow the approved study and electrode-placement procedure.
 
