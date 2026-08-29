@@ -4,9 +4,9 @@ MotemaSens records ECG, heart-sound microphone and motion data. This repository 
 
 ## Downloads
 
-- [Android app v15.0.2](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v15.0.2/motemasens-mobile-v15.0.2.apk)
-- [Device firmware v15.0.2](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v15.0.2/firmware.bin)
-- [Complete v15.0.2 package](https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v15.0.2/MotemaSens-v15.0.2.zip)
+- [Android app v15.0.2](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/motemasens-mobile-v15.0.2.apk)
+- [Device firmware v15.0.2](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/firmware.bin)
+- [Complete v15.0.2 package](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/MotemaSens-v15.0.2.zip)
 
 Update the Android app first, then update device firmware from the app.
 

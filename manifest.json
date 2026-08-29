@@ -14,7 +14,7 @@
         "sourceCommit": "68276f98a560bc8d5315ba6d75d22d09baf2fcbe",
         "package": {
           "path": "unified_releases/v15.0.2/MotemaSens-v15.0.2.zip",
-          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/unified_releases/v15.0.2/MotemaSens-v15.0.2.zip"
+          "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/MotemaSens-v15.0.2.zip"
         },
         "firmware": {
           "version": "15.0.2",
@@ -56,7 +56,7 @@
           "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
           "apk": {
             "path": "mobile_releases/v15.0.2/motemasens-mobile-v15.0.2.apk",
-            "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v15.0.2/motemasens-mobile-v15.0.2.apk",
+            "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/motemasens-mobile-v15.0.2.apk",
             "sha256": "88b4fa2fcd4b6cb3b20789684d20ff4afaf614e2715a443bc8946de89b90c525",
             "size": 58149891
           }
@@ -1145,7 +1145,7 @@
             "playInAppUpdateSupported": false,
             "apk": {
               "path": "mobile_releases/v15.0.2/motemasens-mobile-v15.0.2.apk",
-              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/mobile_releases/v15.0.2/motemasens-mobile-v15.0.2.apk",
+              "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v15.0.2/motemasens-mobile-v15.0.2.apk",
               "sha256": "88b4fa2fcd4b6cb3b20789684d20ff4afaf614e2715a443bc8946de89b90c525",
               "size": 58149891
             }
