@@ -1,0 +1,22 @@
+{
+  "release": "v16.0.0",
+  "sourceCommit": "88367862743f83b49b49c141960bf4fa0fe6a113",
+  "approvedBy": "Marzook (explicit request to publish for tester field validation)",
+  "evidencePath": "docs/release_management/V16_FIELD_FIXES.md",
+  "physicalValidation": "not_run",
+  "matlabRuntimeValidation": "deferred",
+  "publishWithLimitations": true,
+  "exceptionReason": "The user explicitly requested implementation, software validation and official publication while no physical MotemaSens device is available. Ernest and Nirusa will perform field validation and report on GitHub. No physical pass is claimed.",
+  "knownLimitations": [
+    "Physical firmware installation, Local/Remote OTA, BLE sleep and RESET wake remain untested for this build.",
+    "Android emulator confirms native PCM playback lifecycle, but physical headphone audibility, latency and acoustic feedback remain untested.",
+    "Thermal safety, unexpected resets, electrode contact and silicone/acoustic coupling remain open physical issues.",
+    "Acoustic findings are unvalidated research candidates, not clinical diagnoses.",
+    "MATLAB runtime is unavailable; converter self-tests and package checks passed.",
+    "Install the v16 mobile app before v16 firmware because the live protocol is now v2."
+  ],
+  "approved": true,
+  "approvalStatus": "approved_with_limitations",
+  "approvedUtc": "2026-09-23T10:11:17.848038+00:00",
+  "packageVerification": "passed"
+}
