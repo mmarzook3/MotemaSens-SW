@@ -1,0 +1,13 @@
+{
+  "release": "mobile-v16.0.1",
+  "appVersion": "16.0.1+112",
+  "firmwareUnchanged": "v16.0.0",
+  "sourceCommit": "50726d89d7694acb074e473f285f6f06e1e4dbe5",
+  "androidSignerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+  "apk": {
+    "path": "mobile_releases/mobile-v16.0.1/motemasens-mobile-v16.0.1.apk",
+    "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/mobile-v16.0.1/motemasens-mobile-v16.0.1.apk",
+    "sha256": "7ec0baae695785d0567323f15e7477ba3e262b10a61739c2ba24f22802c33cb4",
+    "size": 58330239
+  }
+}
