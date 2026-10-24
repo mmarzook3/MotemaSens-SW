@@ -2,10 +2,84 @@
   "schema": 2,
   "product": "MotemaSens",
   "repo": "https://github.com/mmarzook3/MotemaSens-SW",
-  "latest": "v16.0.0",
+  "latest": "v16.1.0",
   "unified": {
-    "latest": "v16.0.0",
+    "latest": "v16.1.0",
     "releases": [
+      {
+        "release": "v16.1.0",
+        "semver": "16.1.0",
+        "status": "approved_with_limitations",
+        "releaseDate": "2026-10-24",
+        "sourceCommit": "c627fdda6dc703c52bb32ab9a18dc4d021776d3b",
+        "package": {
+          "path": "unified_releases/v16.1.0/MotemaSens-v16.1.0.zip",
+          "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/MotemaSens-v16.1.0.zip"
+        },
+        "firmware": {
+          "version": "16.1.0",
+          "files": {
+            "bootloader": {
+              "path": "releases/v16.1.0/bootloader.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/bootloader.bin",
+              "address": "0x0",
+              "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+              "size": 15104
+            },
+            "partitions": {
+              "path": "releases/v16.1.0/partitions.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/partitions.bin",
+              "address": "0x8000",
+              "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+              "size": 3072
+            },
+            "boot_app0": {
+              "path": "releases/v16.1.0/boot_app0.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/boot_app0.bin",
+              "address": "0xe000",
+              "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+              "size": 8192
+            },
+            "firmware": {
+              "path": "releases/v16.1.0/firmware.bin",
+              "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/firmware.bin",
+              "address": "0x10000",
+              "sha256": "262c77303ee8f8decf08777fa265b3b448c028eb991ad85b716f2a9dd2f9c855",
+              "size": 1843136
+            }
+          }
+        },
+        "app": {
+          "version": "16.1.0",
+          "androidBuild": 113,
+          "package": "uk.nwatt.motemasens",
+          "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+          "apk": {
+            "path": "mobile_releases/v16.1.0/motemasens-mobile-v16.1.0.apk",
+            "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/motemasens-mobile-v16.1.0.apk",
+            "sha256": "fcc7567a7f6f41cf1e624f85ede22ab36186daecbf7dc47cff889f0974a35ab9",
+            "size": 58330239
+          }
+        },
+        "tools": {
+          "version": "16.1.0",
+          "packagePath": "unified_releases/v16.1.0/MotemaSens-v16.1.0/tools"
+        },
+        "compatibility": {
+          "binaryLogFormat": 4,
+          "manifestSchema": 2,
+          "minimumFirmware": "16.1.0",
+          "minimumApp": "16.1.0",
+          "minimumTools": "16.1.0"
+        },
+        "knownLimitations": [
+          "No physical ESP32/WiFi/SD/OTA testing was possible in this batch; Ernest must verify real timing, acquisition lateness, stack/heap margins and radio performance.",
+          "Simulation executes the actual transport with platform/clock/socket shims; it does not emulate ESP32 interrupt latency, PSRAM timing or FreeRTOS scheduling.",
+          "No finite buffer can guarantee zero loss during indefinite stalls. Retention is at least 8.192 seconds at supported maximum rates; over-capacity gaps and five-second no-progress disconnects remain explicit.",
+          "MATLAB runtime was unavailable. Acoustic/ECG clinical quality, heating and attachment remain separate field concerns.",
+          "Android emulator ADB access was unauthorized; native simulations were run in an isolated local Linux container instead."
+        ]
+      },
       {
         "release": "v16.0.0",
         "semver": "16.0.0",
@@ -592,6 +666,44 @@
     ]
   },
   "versions": [
+    {
+      "version": "v16.1.0",
+      "name": "MotemaSens Firmware v16.1.0",
+      "firmware_version": "v16.1.0",
+      "source_commit": "c627fdda6dc703c52bb32ab9a18dc4d021776d3b",
+      "release_date": "2026-10-24",
+      "notes": "Unified MotemaSens release published with documented validation limitations.",
+      "files": {
+        "bootloader": {
+          "path": "releases/v16.1.0/bootloader.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/bootloader.bin",
+          "address": "0x0",
+          "sha256": "2a71d69b471e20c2bac7fb469f3c6a807b3ebee780e348e5889db0da849ca363",
+          "size": 15104
+        },
+        "partitions": {
+          "path": "releases/v16.1.0/partitions.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/partitions.bin",
+          "address": "0x8000",
+          "sha256": "5bb97a1250f217d92e3372c6ba0450a3a2ab829820537b5c338fbaf6fd8572c7",
+          "size": 3072
+        },
+        "boot_app0": {
+          "path": "releases/v16.1.0/boot_app0.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/boot_app0.bin",
+          "address": "0xe000",
+          "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0",
+          "size": 8192
+        },
+        "firmware": {
+          "path": "releases/v16.1.0/firmware.bin",
+          "url": "https://raw.githubusercontent.com/mmarzook3/MotemaSens-SW/main/releases/v16.1.0/firmware.bin",
+          "address": "0x10000",
+          "sha256": "262c77303ee8f8decf08777fa265b3b448c028eb991ad85b716f2a9dd2f9c855",
+          "size": 1843136
+        }
+      }
+    },
     {
       "version": "v16.0.0",
       "name": "MotemaSens Firmware v16.0.0",
@@ -1241,8 +1353,33 @@
   ],
   "app": {
     "schema": 2,
-    "latest": "16.0.1+112",
+    "latest": "16.1.0+113",
     "releases": [
+      {
+        "version": "16.1.0+113",
+        "publicVersion": "v16.1.0",
+        "name": "MotemaSens Mobile v16.1.0",
+        "releaseDate": "2026-10-24",
+        "notes": "Unified MotemaSens release published with documented validation limitations.",
+        "sourceCommit": "c627fdda6dc703c52bb32ab9a18dc4d021776d3b",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/v16.1.0/motemasens-mobile-v16.1.0.apk",
+              "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/motemasens-mobile-v16.1.0.apk",
+              "sha256": "fcc7567a7f6f41cf1e624f85ede22ab36186daecbf7dc47cff889f0974a35ab9",
+              "size": 58330239
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "16.0.1+112",
         "publicVersion": "mobile-v16.0.1",

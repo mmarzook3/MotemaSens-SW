@@ -1,14 +1,12 @@
-**Android app patch 16.0.1:** [Download APK](https://github.com/mmarzook3/MotemaSens-SW/releases/download/mobile-v16.0.1/motemasens-mobile-v16.0.1.apk). Firmware remains v16.0.0; no device update required.
-
-# MotemaSens v16.0.0
+# MotemaSens v16.1.0
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
 ## Downloads
 
-- [Android app v16.0.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.0.0/motemasens-mobile-v16.0.0.apk)
-- [Device firmware v16.0.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.0.0/firmware.bin)
-- [Complete v16.0.0 package](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.0.0/MotemaSens-v16.0.0.zip)
+- [Android app v16.1.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/motemasens-mobile-v16.1.0.apk)
+- [Device firmware v16.1.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/firmware.bin)
+- [Complete v16.1.0 package](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/MotemaSens-v16.1.0.zip)
 
 Update the Android app first, then update device firmware from the app.
 
@@ -16,14 +14,13 @@ Update the Android app first, then update device firmware from the app.
 
 This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
 
-- Physical firmware installation, Local/Remote OTA, BLE sleep and RESET wake remain untested for this build.
-- Android emulator confirms native PCM playback lifecycle, but physical headphone audibility, latency and acoustic feedback remain untested.
-- Thermal safety, unexpected resets, electrode contact and silicone/acoustic coupling remain open physical issues.
-- Acoustic findings are unvalidated research candidates, not clinical diagnoses.
-- MATLAB runtime is unavailable; converter self-tests and package checks passed.
-- Install the v16 mobile app before v16 firmware because the live protocol is now v2.
+- No physical ESP32/WiFi/SD/OTA testing was possible in this batch; Ernest must verify real timing, acquisition lateness, stack/heap margins and radio performance.
+- Simulation executes the actual transport with platform/clock/socket shims; it does not emulate ESP32 interrupt latency, PSRAM timing or FreeRTOS scheduling.
+- No finite buffer can guarantee zero loss during indefinite stalls. Retention is at least 8.192 seconds at supported maximum rates; over-capacity gaps and five-second no-progress disconnects remain explicit.
+- MATLAB runtime was unavailable. Acoustic/ECG clinical quality, heating and attachment remain separate field concerns.
+- Android emulator ADB access was unauthorized; native simulations were run in an isolated local Linux container instead.
 
-# MotemaSens v16.0.0 user guide
+# MotemaSens v16.1.0 user guide
 
 MotemaSens records ECG, heart-sound microphone and motion data. The Android app
 controls recording, displays status, manages SD files and updates the device.
@@ -65,7 +62,7 @@ sensor values to hide a gap.
 ## Working with files
 
 Binary `.bin` files are the original high-speed recordings. Keep the original
-file and convert a copy to CSV when needed. The v16.0.0 package contains:
+file and convert a copy to CSV when needed. The v16.1.0 package contains:
 
 - BIN-to-CSV graphical and command-line tools.
 - MATLAB log reader.
@@ -79,14 +76,14 @@ native USB data lines routed to the connector.
 
 ## Software updates
 
-Install the v16.0.0 Android app first. In the app, open **Software Update**, select
-MotemaSens v16.0.0, and keep the device powered and connected until it restarts and
-reports firmware `v16.0.0`. A successful upload is not final confirmation; the
+Install the v16.1.0 Android app first. In the app, open **Software Update**, select
+MotemaSens v16.1.0, and keep the device powered and connected until it restarts and
+reports firmware `v16.1.0`. A successful upload is not final confirmation; the
 version shown after reboot is the confirmation.
 
 ## Safe use
 
-MotemaSens v16.0.0 is an engineering and research prototype. A recording-quality
+MotemaSens v16.1.0 is an engineering and research prototype. A recording-quality
 result describes file integrity and detected signal conditions; it is not a
 medical diagnosis. Follow the approved study and electrode-placement procedure.
 

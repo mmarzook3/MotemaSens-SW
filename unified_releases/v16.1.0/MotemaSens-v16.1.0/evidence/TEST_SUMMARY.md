@@ -1,0 +1,15 @@
+# MotemaSens v16.1.0 test summary
+
+Automated gates passed. Physical validation status: not_run. Publication was explicitly approved with limitations by Marzook (explicit request for a release for Ernest to test).
+
+Known validation limitations:
+
+- No physical ESP32/WiFi/SD/OTA testing was possible in this batch; Ernest must verify real timing, acquisition lateness, stack/heap margins and radio performance.
+- Simulation executes the actual transport with platform/clock/socket shims; it does not emulate ESP32 interrupt latency, PSRAM timing or FreeRTOS scheduling.
+- No finite buffer can guarantee zero loss during indefinite stalls. Retention is at least 8.192 seconds at supported maximum rates; over-capacity gaps and five-second no-progress disconnects remain explicit.
+- MATLAB runtime was unavailable. Acoustic/ECG clinical quality, heating and attachment remain separate field concerns.
+- Android emulator ADB access was unauthorized; native simulations were run in an isolated local Linux container instead.
+
+Reason: The user requested firmware corrections, stall simulations and publication for Ernest's physical retest. Native C++ transport simulations, firmware build, 131 firmware/release tests, converter self-test, Flutter analysis, 160 Flutter tests and signed APK build passed. Final firmware disconnect-state correction passed targeted regression and rebuild; unchanged APK artifacts were reused for final packaging.
+
+Evidence: docs/firmware/test_results/2026-10-24-preview-stalls/README.md.
