@@ -1,3 +1,5 @@
+**Android app patch 16.1.1:** [Download APK](https://github.com/mmarzook3/MotemaSens-SW/releases/download/mobile-v16.1.1/motemasens-mobile-v16.1.1.apk). Firmware remains v16.1.0; no device update required.
+
 # MotemaSens v16.1.0
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.

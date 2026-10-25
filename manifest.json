@@ -1353,8 +1353,33 @@
   ],
   "app": {
     "schema": 2,
-    "latest": "16.1.0+113",
+    "latest": "16.1.1+114",
     "releases": [
+      {
+        "version": "16.1.1+114",
+        "publicVersion": "mobile-v16.1.1",
+        "name": "MotemaSens Mobile 16.1.1",
+        "releaseDate": "2026-10-25",
+        "notes": "Adds consented Support details diagnostic uploads with privacy filtering, retry-safe report IDs and VPS support retrieval. Firmware remains v16.1.0.",
+        "sourceCommit": "df3a2b9de206f3c5d265d2071c867da29a4ce9dc",
+        "platforms": {
+          "android": {
+            "package": "uk.nwatt.motemasens",
+            "signerSha256": "187523408c0bd347d9444304d3e019b25a15c552d070dbed0b424c5cbe379811",
+            "playStoreUrl": "",
+            "playInAppUpdateSupported": false,
+            "apk": {
+              "path": "mobile_releases/mobile-v16.1.1/motemasens-mobile-v16.1.1.apk",
+              "url": "https://github.com/mmarzook3/MotemaSens-SW/releases/download/mobile-v16.1.1/motemasens-mobile-v16.1.1.apk",
+              "sha256": "24bd759c6758dc73b5c74e0f7b7459c311c338add7ea5d849845430813d9fd4d",
+              "size": 58330395
+            }
+          },
+          "ios": {
+            "appStoreUrl": ""
+          }
+        }
+      },
       {
         "version": "16.1.0+113",
         "publicVersion": "v16.1.0",
