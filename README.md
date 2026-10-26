@@ -1,14 +1,12 @@
-**Android app patch 16.1.1:** [Download APK](https://github.com/mmarzook3/MotemaSens-SW/releases/download/mobile-v16.1.1/motemasens-mobile-v16.1.1.apk). Firmware remains v16.1.0; no device update required.
-
-# MotemaSens v16.1.0
+# MotemaSens v16.2.0
 
 MotemaSens records ECG, heart-sound microphone and motion data. This repository contains released software, tools and user documentation.
 
 ## Downloads
 
-- [Android app v16.1.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/motemasens-mobile-v16.1.0.apk)
-- [Device firmware v16.1.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/firmware.bin)
-- [Complete v16.1.0 package](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.1.0/MotemaSens-v16.1.0.zip)
+- [Android app v16.2.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.2.0/motemasens-mobile-v16.2.0.apk)
+- [Device firmware v16.2.0](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.2.0/firmware.bin)
+- [Complete v16.2.0 package](https://github.com/mmarzook3/MotemaSens-SW/releases/download/v16.2.0/MotemaSens-v16.2.0.zip)
 
 Update the Android app first, then update device firmware from the app.
 
@@ -16,11 +14,11 @@ Update the Android app first, then update device firmware from the app.
 
 This release passed automated and available connected-device checks. It was published with the following recorded validation limitations:
 
-- No physical ESP32/WiFi/SD/OTA testing was possible in this batch; Ernest must verify real timing, acquisition lateness, stack/heap margins and radio performance.
-- Simulation executes the actual transport with platform/clock/socket shims; it does not emulate ESP32 interrupt latency, PSRAM timing or FreeRTOS scheduling.
-- No finite buffer can guarantee zero loss during indefinite stalls. Retention is at least 8.192 seconds at supported maximum rates; over-capacity gaps and five-second no-progress disconnects remain explicit.
-- MATLAB runtime was unavailable. Acoustic/ECG clinical quality, heating and attachment remain separate field concerns.
-- Android emulator ADB access was unauthorized; native simulations were run in an isolated local Linux container instead.
+- No physical validation of this revision: weak-WiFi/SD/cloud soak, heap/stack margins, remote commands and actual OTA installation require Ernest's testing.
+- The physical cause of the previous five invalid ECG frames and 3.993-second interval remains unresolved; new evidence capture is not a claim of electrical/SPI repair.
+- Simulations do not emulate RF, FreeRTOS, PSRAM or SD power-loss behaviour. Finite retention cannot guarantee lossless delivery through indefinite stalls.
+- MQTT reconnect after connection loss during SD logging remains deferred until session stop.
+- MATLAB runtime testing and clinical performance validation remain deferred.
 
 # MotemaSens v16.1.0 user guide
 
